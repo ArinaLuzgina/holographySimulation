@@ -17,6 +17,6 @@ add_executable(${PROJECT_NAME}
     src/main.cpp
 )
 
-# Создание исполняемого файла
-add_executable(holography ${SOURCES})
+# # Создание исполняемого файла
+# add_executable(holography ${SOURCES})
 
