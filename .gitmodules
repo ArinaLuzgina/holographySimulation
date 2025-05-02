@@ -1,0 +1,3 @@
+[submodule "graphics/build/external/glad"]
+	path = graphics/build/external/glad
+	url = https://github.com/Dav1dde/glad.git
