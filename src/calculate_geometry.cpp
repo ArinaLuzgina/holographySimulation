@@ -1,5 +1,3 @@
-//toDO: добавить рассчет параметра если прямая параллельная одной из осей 
-
 #include "geometry.h"
 obj_geometry::obj_geometry() 
     : scale(1e-6), 
