@@ -15,6 +15,11 @@ include_directories(include)
 add_executable(${PROJECT_NAME}
     src/calculate_transp_matrix.cpp
     src/main.cpp
+    src/calculate_geometry.cpp
+)
+target_include_directories(holography
+    PRIVATE 
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 # # Создание исполняемого файла
