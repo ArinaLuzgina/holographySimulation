@@ -78,7 +78,9 @@ bool check_enum(double p1, double p2, double p3, double p4, double p5, double p6
 
 double calculate_param(double p1, double p2, double p3, double p4, double p5, double p6, double p7, double p8, double eps){
     if (check_enum(p1, p2, p3, p4, p5, p6, p7, p8, eps)){
-        return (p8 - p7 + (p6 - p8) * (p3 - p4) / (p2 - p4)) / (p5 - p7 + (p8 - p6) * (p1 - p3) / (p2 - p4));
+        double res =  (p8 - p7 + (p6 - p8) * (p3 - p4) / (p2 - p4)) / (p5 - p7 + (p8 - p6) * (p1 - p3) / (p2 - p4));
+        std::cout << res << " " << eps <<"\n";
+        return res;
     }
     return 0.0;
 }
@@ -90,7 +92,7 @@ bool obj_geometry::calculate_points_for_one_surface(std::vector<Point> vertex){
         return false;
     }
     std::vector<Point> sides;
-    double eps = 1e-9 * scale;
+    double eps = 1e-6 * scale;
     for(size_t i = 0; i < 4; i ++){ // задаем векторы боковых граней
         if (i < 2){ 
         sides.push_back({(vertex[(i + 1) % 4].x - vertex[i % 4].x) * scale, (vertex[(i + 1) % 4].y - vertex[i % 4].y) * scale, (vertex[(i + 1) % 4].z - vertex[i % 4].z) * scale});
@@ -99,15 +101,16 @@ bool obj_geometry::calculate_points_for_one_surface(std::vector<Point> vertex){
         }
     }
     for(size_t i = 0; i < 4; i++){ // задаем шаг на каждой из сторон
-        if(number_of_points[i % 2] == 0){
-            number_of_points[i % 2] = 1;
-        }
         sides[i].x = sides[i].x * 1.0 / number_of_points[i % 2];
         sides[i].y = sides[i].y * 1.0 / number_of_points[i % 2];
         sides[i].z = sides[i].z * 1.0 / number_of_points[i % 2];
+        std::cout << number_of_points[i % 2] << std::endl;
     }
-    for(size_t i = 1; i <= number_of_points[0]; i ++){ // теперь посчитаем все точки, который у нас есть
-        for(size_t j = 1; j <= number_of_points[1]; j ++){
+    for(size_t i = 0; i <= number_of_points[0]; i ++){ // теперь посчитаем все точки, который у нас есть
+        for(size_t j = 0; j <= number_of_points[1]; j ++){
+            if(i == 0 and j == 0){
+                continue;
+            }
             std::vector<Point> sup_vec;
             Point p;
 
@@ -117,72 +120,96 @@ bool obj_geometry::calculate_points_for_one_surface(std::vector<Point> vertex){
                 }else{
                     sup_vec.push_back({sides[k].x * j, sides[k].y * j, sides[k].z * j});
                 }
-                if(k < 2){
-                    sup_vec[k].x +=  vertex[k].x * scale;
-                    sup_vec[k].y +=  vertex[k].y * scale;
-                    sup_vec[k].z +=  vertex[k].z * scale;
-                }else{
-                    sup_vec[k].x +=  vertex[(k + 1) % 4].x * scale;
-                    sup_vec[k].y +=  vertex[(k + 1) % 4].y * scale;
-                    sup_vec[k].z +=  vertex[(k + 1) % 4].z * scale;
-
-                }
-
-
+                // if(k < 2){
+                //     sup_vec[k].x +=  vertex[k].x * scale;
+                //     sup_vec[k].y +=  vertex[k].y * scale;
+                //     sup_vec[k].z +=  vertex[k].z * scale;
+                // }else{
+                //     sup_vec[k].x +=  vertex[(k + 1) % 4].x * scale;
+                //     sup_vec[k].y +=  vertex[(k + 1) % 4].y * scale;
+                //     sup_vec[k].z +=  vertex[(k + 1) % 4].z * scale;
+                // }
+                //std::cout << sup_vec[k].x << " " << sup_vec[k].y << " " << sup_vec[k].z << " " << i << " " << j << std::endl;
             }
             double v = 0.0;
+            // bool flag = true;
+            // if((v = calculate_param(sup_vec[0].x + vertex[0].x, sup_vec[1].x + vertex[1].x, sup_vec[2].x + vertex[2].x, sup_vec[3].x + vertex[3].x, sup_vec[0].y + vertex[0].y, sup_vec[1].y + vertex[1].y, sup_vec[2].y + vertex[2].y, sup_vec[3].y + vertex[3].y, eps)) > eps){
+            //     ;//std::cout << v << std::endl;
+            //     std::cout << "1\n";
+            // } 
+            // else if((v = calculate_param(sup_vec[0].x, sup_vec[1].x, sup_vec[2].x, sup_vec[3].x, sup_vec[0].z, sup_vec[1].z, sup_vec[2].z, sup_vec[3].z, eps)) > eps){
+            //     ;//std::cout << v << std::endl;
+            //     std::cout << "2\n";
+
+            // }
+            // else if((v = calculate_param(sup_vec[0].y, sup_vec[1].y, sup_vec[2].y, sup_vec[3].y, sup_vec[0].x, sup_vec[1].x, sup_vec[2].x, sup_vec[3].x, eps)) > eps){
+            //     ;//std::cout << v << std::endl;
+            //     std::cout << "3\n";
+
+            // } 
+            // else if((v = calculate_param(sup_vec[0].y, sup_vec[1].y, sup_vec[2].y, sup_vec[3].y, sup_vec[0].z, sup_vec[1].z, sup_vec[2].z, sup_vec[3].z, eps)) > eps){
+            //     ;//std::cout << v << std::endl;
+            //     std::cout << "4\n";
+
+            // }
+            // else if((v = calculate_param(sup_vec[0].z, sup_vec[1].z, sup_vec[2].z, sup_vec[3].z, sup_vec[0].x, sup_vec[1].x, sup_vec[2].x, sup_vec[3].x, eps)) > eps){
+            //     ;//std::cout << v << std::endl;
+            //     std::cout << "5\n";
+
+            // } 
+            // else if((v = calculate_param(sup_vec[0].z, sup_vec[1].z, sup_vec[2].z, sup_vec[3].z, sup_vec[0].y, sup_vec[1].y, sup_vec[2].y, sup_vec[3].y, eps)) > eps){
+            //     ;//std::cout << v << std::endl;
+            //     std::cout << "6\n";
+
+            // } 
+            // else if((v = calculate_param(sup_vec[1].x, sup_vec[0].x, sup_vec[3].x, sup_vec[2].x, sup_vec[1].y, sup_vec[0].y, sup_vec[3].y, sup_vec[2].y, eps)) > eps){
+            //     flag = false;//std::cout << v << std::endl; 
+ 
+            //     std::cout << "7\n";
+            // }
+            // else if((v = calculate_param(sup_vec[1].x, sup_vec[0].x, sup_vec[3].x, sup_vec[2].x, sup_vec[1].z, sup_vec[0].z, sup_vec[3].z, sup_vec[2].z, eps)) > eps){
+            //     flag = false;//std::cout << v << std::endl;  
+
+            //     std::cout << "8\n";
+            // }
+            // else if((v = calculate_param(sup_vec[1].y, sup_vec[0].y, sup_vec[3].y, sup_vec[2].y, sup_vec[1].x, sup_vec[0].x, sup_vec[3].x, sup_vec[2].x, eps)) > eps){
+            //     flag = false;//std::cout << v << std::endl;
+            //     std::cout << "9\n";
+            // }
+            // else if((v = calculate_param(sup_vec[1].y, sup_vec[0].y, sup_vec[3].y, sup_vec[2].y, sup_vec[1].z, sup_vec[0].z, sup_vec[3].z, sup_vec[2].z, eps)) > eps){
+            //     flag = false;//std::cout << v << std::endl; 
+            //     std::cout << "10\n";
+            // }
+            // else if((v = calculate_param(sup_vec[1].z, sup_vec[0].z, sup_vec[3].z, sup_vec[2].z, sup_vec[1].x, sup_vec[0].x, sup_vec[3].x, sup_vec[2].x, eps)) > eps){
+            //     flag = false;//std::cout << v << std::endl;  
+            //     std::cout << "11\n";
+            // }
+            // else if((v = calculate_param(sup_vec[1].z, sup_vec[0].z, sup_vec[3].z, sup_vec[2].z, sup_vec[1].y, sup_vec[0].y, sup_vec[3].y, sup_vec[2].y, eps)) > eps){
+            //     flag = false;//std::cout << v << std::endl;  
+            //     std::cout << "12\n";
+            // }
+            // std::cout << v << "!" << std::endl;
             bool flag = true;
-            if((v = calculate_param(sup_vec[0].x, sup_vec[1].x, sup_vec[2].x, sup_vec[3].x, sup_vec[0].y, sup_vec[1].y, sup_vec[2].y, sup_vec[3].y, eps)) > eps){
-                ;//std::cout << v << std::endl;
-            } 
-            else if((v = calculate_param(sup_vec[0].x, sup_vec[1].x, sup_vec[2].x, sup_vec[3].x, sup_vec[0].z, sup_vec[1].z, sup_vec[2].z, sup_vec[3].z, eps)) > eps){
-                ;//std::cout << v << std::endl;
-            }
-            else if((v = calculate_param(sup_vec[0].y, sup_vec[1].y, sup_vec[2].y, sup_vec[3].y, sup_vec[0].x, sup_vec[1].x, sup_vec[2].x, sup_vec[3].x, eps)) > eps){
-                ;//std::cout << v << std::endl;
-            } 
-            else if((v = calculate_param(sup_vec[0].y, sup_vec[1].y, sup_vec[2].y, sup_vec[3].y, sup_vec[0].z, sup_vec[1].z, sup_vec[2].z, sup_vec[3].z, eps)) > eps){
-                ;//std::cout << v << std::endl;
-            }
-            else if((v = calculate_param(sup_vec[0].z, sup_vec[1].z, sup_vec[2].z, sup_vec[3].z, sup_vec[0].x, sup_vec[1].x, sup_vec[2].x, sup_vec[3].x, eps)) > eps){
-                ;//std::cout << v << std::endl;
-            } 
-            else if((v = calculate_param(sup_vec[0].z, sup_vec[1].z, sup_vec[2].z, sup_vec[3].z, sup_vec[0].y, sup_vec[1].y, sup_vec[2].y, sup_vec[3].y, eps)) > eps){
-                ;//std::cout << v << std::endl;
-            } 
-            else if((v = calculate_param(sup_vec[1].x, sup_vec[0].x, sup_vec[3].x, sup_vec[2].x, sup_vec[1].y, sup_vec[0].y, sup_vec[3].y, sup_vec[2].y, eps)) > eps){
-                flag = false;//std::cout << v << std::endl; 
-            }
-            else if((v = calculate_param(sup_vec[1].x, sup_vec[0].x, sup_vec[3].x, sup_vec[2].x, sup_vec[1].z, sup_vec[0].z, sup_vec[3].z, sup_vec[2].z, eps)) > eps){
-                flag = false;//std::cout << v << std::endl;  
-            }
-            else if((v = calculate_param(sup_vec[1].y, sup_vec[0].y, sup_vec[3].y, sup_vec[2].y, sup_vec[1].x, sup_vec[0].x, sup_vec[3].x, sup_vec[2].x, eps)) > eps){
-                flag = false;//std::cout << v << std::endl;
-            }
-            else if((v = calculate_param(sup_vec[1].y, sup_vec[0].y, sup_vec[3].y, sup_vec[2].y, sup_vec[1].z, sup_vec[0].z, sup_vec[3].z, sup_vec[2].z, eps)) > eps){
-                flag = false;//std::cout << v << std::endl; 
-            }
-            else if((v = calculate_param(sup_vec[1].z, sup_vec[0].z, sup_vec[3].z, sup_vec[2].z, sup_vec[1].x, sup_vec[0].x, sup_vec[3].x, sup_vec[2].x, eps)) > eps){
-                flag = false;//std::cout << v << std::endl;  
-            }
-            else if((v = calculate_param(sup_vec[1].z, sup_vec[0].z, sup_vec[3].z, sup_vec[2].z, sup_vec[1].y, sup_vec[0].y, sup_vec[3].y, sup_vec[2].y, eps)) > eps){
-                flag = false;//std::cout << v << std::endl;  
-            }
+            v = eps * 5;
             if(v > eps){
                 if(flag){
-                    p.x = sup_vec[2].x + (sup_vec[0].x - sup_vec[2].x) * v ;//+ vertex[0].x * scale;
-                    p.y = sup_vec[2].y + (sup_vec[0].y - sup_vec[2].y) * v ;//+ vertex[0].y * scale;
-                    p.z = sup_vec[2].z + (sup_vec[0].z - sup_vec[2].z) * v ;//+ vertex[0].z * scale;
+                    p.x = vertex[0].x + sup_vec[0].x + sup_vec[3].x;
+                    p.y = vertex[0].y + sup_vec[0].y + sup_vec[3].y;
+                    p.z = vertex[0].z + sup_vec[0].z + sup_vec[3].z;
+                    // p.x = sup_vec[2].x + (sup_vec[0].x - sup_vec[2].x) * v ;//+ vertex[0].x * scale;
+                    // p.y = sup_vec[2].y + (sup_vec[0].y - sup_vec[2].y) * v ;//+ vertex[0].y * scale;
+                    // p.z = sup_vec[2].z + (sup_vec[0].z - sup_vec[2].z) * v ;//+ vertex[0].z * scale;
                 }
                 else{
-                    p.x = sup_vec[3].x + (sup_vec[1].x - sup_vec[3].x) * v ;//+ vertex[0].x * scale;
-                    p.y = sup_vec[3].y + (sup_vec[1].y - sup_vec[3].y) * v ;//+ vertex[0].y * scale;
-                    p.z = sup_vec[3].z + (sup_vec[1].z - sup_vec[3].z) * v ;//+ vertex[0].z * scale;
+                    // std::cout << "here" << std::endl;
+                    // p.x = sup_vec[3].x + (sup_vec[1].x - sup_vec[3].x) * v ;//+ vertex[0].x * scale;
+                    // p.y = sup_vec[3].y + (sup_vec[1].y - sup_vec[3].y) * v ;//+ vertex[0].y * scale;
+                    // p.z = sup_vec[3].z + (sup_vec[1].z - sup_vec[3].z) * v ;//+ vertex[0].z * scale;
                 }
             }else{
-                p.x = vertex[0].x * scale + sup_vec[0].x + sup_vec[1].x;
-                p.y = vertex[0].y * scale + sup_vec[0].y + sup_vec[1].y;
-                p.z = vertex[0].z * scale + sup_vec[0].z + sup_vec[1].z;
+                // p.x = vertex[0].x * scale + sup_vec[0].x + sup_vec[1].x;
+                // p.y = vertex[0].y * scale + sup_vec[0].y + sup_vec[1].y;
+                // p.z = vertex[0].z * scale + sup_vec[0].z + sup_vec[1].z;
             }
             points.push_back(p);
         }
