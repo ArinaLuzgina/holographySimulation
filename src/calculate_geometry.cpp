@@ -10,7 +10,6 @@ obj_geometry::obj_geometry()
 obj_geometry::obj_geometry(double scale, const std::vector<unsigned int>& number_of_points, const std::vector<Point>& vertexes) : scale(scale), number_of_points(number_of_points), vertexes(vertexes)
 {
         points.resize(number_of_points[0], std::vector<Point>(number_of_points[1]));
-    
 }
 
 bool obj_geometry::save_geometry(const std::string& filename) const {
@@ -35,7 +34,7 @@ bool obj_geometry::save_geometry(const std::string& filename) const {
                 const Point& p = row[i];
                 file << p.x << " " << p.y << " " << p.z; // XYZ через пробел
                 if (i != row.size() - 1) {
-                    file << ";"; // Разделитель между столбцами
+                    file << " ;"; // Разделитель между столбцами
                 }
             }
             file << "\n"; // Новая строка матрицы
