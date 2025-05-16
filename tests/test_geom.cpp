@@ -25,7 +25,7 @@ void test_constructors() {
 void test_save_geometry() {
     std::cout << "\n=== Testing save_geometry ===\n";
     
-    obj_geometry geom(1, {4, 4}, {{{0.0, 0.0, 0.0}, {1.0, 0.0, 0.0}, {1.0, 1.0, 0.0}, {0.0, 1.0, 0.0}}});
+    obj_geometry geom(1, {2, 2}, {{{0.0, 0.0, 0.0}, {1.0, 0.0, 0.0}, {1.0, 1.0, 0.0}, {0.0, 1.0, 0.0}}, {{-1,0,0}, {0,0,0}, {0,1,0}, {-1,1,0}}});
     geom.calculate_points();
     geom.calculate_surfaces();
 

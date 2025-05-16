@@ -26,7 +26,7 @@ obj_geometry::obj_geometry(double scale, const std::vector<unsigned int>& number
         }
 }
 
-points.resize(number_of_points[0] * number_of_points[1] * vertexes.size());}
+}
 
 bool obj_geometry::save_geometry(const std::string& filename, char delimeter ) const {
     // Сохраняем точки в файл с суффиксом _points
@@ -42,7 +42,6 @@ bool obj_geometry::save_geometry(const std::string& filename, char delimeter ) c
         points_file << p.x << delimeter << p.y << delimeter << p.z << "\n";
     }
     points_file.close();
-    std::cout << "Points data written to " << points_filename << "\n";
 
     // Сохраняем поверхности в файл с суффиксом _surfaces
     const std::string surfaces_filename = filename + "_surfaces.txt";
@@ -107,17 +106,29 @@ bool obj_geometry::calculate_points_for_one_surface(std::vector<Point> vertex){
         sides[i].y = sides[i].y * 1.0 / number_of_points[i % 2];
         sides[i].z = sides[i].z * 1.0 / number_of_points[i % 2];
     }
-    for(size_t i = 0; i <= number_of_points[0]; i ++){ // теперь посчитаем все точки, который у нас есть
-        for(size_t j = 0; j <= number_of_points[1]; j ++){
+    for(size_t i = 1; i <= number_of_points[0]; i ++){ // теперь посчитаем все точки, который у нас есть
+        for(size_t j = 1; j <= number_of_points[1]; j ++){
             std::vector<Point> sup_vec;
             Point p;
 
             for(size_t k = 0; k < 4; k ++){
                 if(k % 2 == 0){
-                sup_vec.push_back({sides[k].x * i, sides[k].y * i, sides[k].z * i});
+                    sup_vec.push_back({sides[k].x * i, sides[k].y * i, sides[k].z * i});
                 }else{
-                    sup_vec.push_back({sides[k].x * j, sides[k].y * i, sides[k].z * i});
+                    sup_vec.push_back({sides[k].x * j, sides[k].y * j, sides[k].z * j});
                 }
+                if(k < 2){
+                    sup_vec[k].x +=  vertex[k].x * scale;
+                    sup_vec[k].y +=  vertex[k].y * scale;
+                    sup_vec[k].z +=  vertex[k].z * scale;
+                }else{
+                    sup_vec[k].x +=  vertex[(k + 1) % 4].x * scale;
+                    sup_vec[k].y +=  vertex[(k + 1) % 4].y * scale;
+                    sup_vec[k].z +=  vertex[(k + 1) % 4].z * scale;
+
+                }
+
+
             }
             double v = 0.0;
             bool flag = true;
@@ -159,14 +170,14 @@ bool obj_geometry::calculate_points_for_one_surface(std::vector<Point> vertex){
             }
             if(v > eps){
                 if(flag){
-                    p.x = sup_vec[2].x + (sup_vec[0].x - sup_vec[2].x) * v + vertex[0].x * scale;
-                    p.y = sup_vec[2].y + (sup_vec[0].y - sup_vec[2].y) * v + vertex[0].y * scale;
-                    p.z = sup_vec[2].z + (sup_vec[0].z - sup_vec[2].z) * v + vertex[0].z * scale;
+                    p.x = sup_vec[2].x + (sup_vec[0].x - sup_vec[2].x) * v ;//+ vertex[0].x * scale;
+                    p.y = sup_vec[2].y + (sup_vec[0].y - sup_vec[2].y) * v ;//+ vertex[0].y * scale;
+                    p.z = sup_vec[2].z + (sup_vec[0].z - sup_vec[2].z) * v ;//+ vertex[0].z * scale;
                 }
                 else{
-                    p.x = sup_vec[3].x + (sup_vec[1].x - sup_vec[3].x) * v + vertex[0].x * scale;
-                    p.y = sup_vec[3].y + (sup_vec[1].y - sup_vec[3].y) * v + vertex[0].y * scale;
-                    p.z = sup_vec[3].z + (sup_vec[1].z - sup_vec[3].z) * v + vertex[0].z * scale;
+                    p.x = sup_vec[3].x + (sup_vec[1].x - sup_vec[3].x) * v ;//+ vertex[0].x * scale;
+                    p.y = sup_vec[3].y + (sup_vec[1].y - sup_vec[3].y) * v ;//+ vertex[0].y * scale;
+                    p.z = sup_vec[3].z + (sup_vec[1].z - sup_vec[3].z) * v ;//+ vertex[0].z * scale;
                 }
             }else{
                 p.x = vertex[0].x * scale + sup_vec[0].x + sup_vec[1].x;
@@ -200,6 +211,7 @@ bool obj_geometry::calculate_surface(std::vector<Point> vertex){
 
 bool obj_geometry::calculate_points(){
     for(size_t c = 0; c < vertexes.size(); c++){
+        points.push_back(vertexes[c][0]);
         calculate_points_for_one_surface(vertexes[c]);
     }
     return true;
