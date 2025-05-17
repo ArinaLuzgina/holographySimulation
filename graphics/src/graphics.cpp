@@ -8,6 +8,7 @@
 #include <iostream>
 #include <random>
 #include <array>
+#include <omp.h>
 
 // Window dimensions
 const unsigned int SCR_WIDTH  = 1280;
@@ -43,6 +44,7 @@ void fillRandom(std::vector<std::vector<double>>& intensity) {
         }
     }
 }
+
 // Dummy intensity data;
 // std::vector<std::vector<double>> intensity = [](){
 //     int W=10000, H=10000;
@@ -218,15 +220,19 @@ void updateIntensityTexture(GLuint tex,
     int texW = static_cast<int>(intensity.size());
     int texH = static_cast<int>(intensity[0].size());
 
-    // flatten as before
-    std::vector<float> pixels;
-    pixels.reserve(texW * texH);
-    for (int y = 0; y < texH; ++y)
-        for (int x = 0; x < texW; ++x)
-            pixels.push_back(static_cast<float>(intensity[x][y]));
+    // allocate once at full size
+    std::vector<float> pixels(texW * texH);
 
-    // bind & re-upload
+    // parallel flatten; use collapse(2) to parallelize both loops
+    #pragma omp parallel for collapse(2)
+    for (int y = 0; y < texH; ++y) {
+        for (int x = 0; x < texW; ++x) {
+            pixels[y * texW + x] = static_cast<float>(intensity[x][y]);
+        }
+    }
+
     glBindTexture(GL_TEXTURE_2D, tex);
+    // re-upload all pixels in one shot
     glTexSubImage2D(GL_TEXTURE_2D,
                     0,             // mip level
                     0, 0,          // xoffset, yoffset
@@ -381,6 +387,8 @@ void renderScene(GLFWwindow* window,
 
 
 
+
+
 // Shaders
 const char *vertexShaderSource = R"glsl(
 #version 330 core
@@ -405,10 +413,13 @@ void main() {
 }
 )glsl";
 
+
+
+
 int main() {
 
     // Creating intensity distribution
-    auto intensity = createIntensity(8, 8); 
+    auto intensity = createIntensity(2000, 2000); 
     fillRandom(intensity);
 
 
@@ -437,7 +448,7 @@ int main() {
 
         processInput(window);
 
-        fillRandom(intensity);                    
+        // fillRandom(intensity);                    
         updateIntensityTexture(intensityTex, intensity);
 
         renderScene(window,
