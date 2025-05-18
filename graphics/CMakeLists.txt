@@ -1,9 +1,14 @@
 cmake_minimum_required(VERSION 3.5)
 project(HologramVisualizer)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
-# Подключим FetchContent
+# Написать многабукав для clangd, чтобы не ругался сильно
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+
+
+# FetchContent берёт либы с гитхаба
 include(FetchContent)
 
 # GLFW
@@ -30,9 +35,17 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(glm)
 
-# Собираем ваши исходники
-file(GLOB_RECURSE SRC_FILES src/*.cpp)
+
+
+# Собираем исходники
+file( GLOB_RECURSE
+      SRC_FILES
+      CONFIGURE_DEPENDS
+      ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
+)
 add_executable(${PROJECT_NAME} ${SRC_FILES})
+
+
 
 # Пути
 target_include_directories(${PROJECT_NAME}
@@ -47,7 +60,4 @@ target_link_libraries(${PROJECT_NAME}
     glad
     glm::glm
 )
-
-# Дополнительно, если хотите IDE‑folders
-set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
