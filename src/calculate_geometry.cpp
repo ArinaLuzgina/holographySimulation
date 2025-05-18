@@ -28,43 +28,68 @@ obj_geometry::obj_geometry(double scale, const std::vector<unsigned int>& number
 
 }
 
-bool obj_geometry::save_geometry(const std::string& filename, char delimeter ) const {
-    // Сохраняем точки в файл с суффиксом _points
+bool obj_geometry::save_geometry(const std::string& filename, char delimeter) const {
+    // Сохраняем вершины поверхностей
+    const std::string vertex_filename = filename + "_vertexes.txt";
+    std::ofstream vfile(vertex_filename);
+    if (!vfile.is_open()) {
+        std::cerr << "Error: Could not open vertex file " << vertex_filename << "\n";
+        return false;
+    }
+
+    for (const auto& surface_vertices : vertexes) {
+        if (surface_vertices.size() != 4) {
+            std::cerr << "Warning: Invalid vertex count in surface\n";
+            continue;
+        }
+        
+        for (size_t i = 0; i < surface_vertices.size(); ++i) {
+            const Point& p = surface_vertices[i];
+            vfile << p.x << delimeter 
+                  << p.y << delimeter 
+                  << p.z;
+            if (i != surface_vertices.size() - 1) {
+                vfile << delimeter; // Разделитель между вершинами
+            }
+        }
+        vfile << "\n";
+    }
+    vfile.close();
+    std::cout << "Vertex data written to " << vertex_filename << "\n";
+
+    // Оригинальный код сохранения точек и поверхностей
     const std::string points_filename = filename + "_points.txt";
-    std::ofstream points_file(points_filename);
-    if (!points_file.is_open()) {
+    std::ofstream pfile(points_filename);
+    if (!pfile.is_open()) {
         std::cerr << "Error: Could not open points file " << points_filename << "\n";
         return false;
     }
 
-    // Записываем точки
     for (const Point& p : points) {
-        points_file << p.x << delimeter << p.y << delimeter << p.z << "\n";
+        pfile << p.x << delimeter << p.y << delimeter << p.z << "\n";
     }
-    points_file.close();
+    pfile.close();
 
-    // Сохраняем поверхности в файл с суффиксом _surfaces
     const std::string surfaces_filename = filename + "_surfaces.txt";
-    std::ofstream surfaces_file(surfaces_filename);
-    if (!surfaces_file.is_open()) {
+    std::ofstream sfile(surfaces_filename);
+    if (!sfile.is_open()) {
         std::cerr << "Error: Could not open surfaces file " << surfaces_filename << "\n";
         return false;
     }
 
-    // Записываем поверхности
     for (const auto& surface : surfaces) {
         if (surface.size() != 4) {
             std::cerr << "Warning: Invalid surface format\n";
             continue;
         }
-        surfaces_file << surface[0] << delimeter
-                      << surface[1] << delimeter 
-                      << surface[2] << delimeter 
-                      << surface[3] << "\n";
+        sfile << surface[0] << delimeter
+              << surface[1] << delimeter
+              << surface[2] << delimeter
+              << surface[3] << "\n";
     }
-    surfaces_file.close();
-    std::cout << "Surfaces data written to " << surfaces_filename << "\n";
+    sfile.close();
 
+    std::cout << "All data saved successfully!\n";
     return true;
 }
 
@@ -79,7 +104,7 @@ bool check_enum(double p1, double p2, double p3, double p4, double p5, double p6
 double calculate_param(double p1, double p2, double p3, double p4, double p5, double p6, double p7, double p8, double eps){
     if (check_enum(p1, p2, p3, p4, p5, p6, p7, p8, eps)){
         double res =  (p8 - p7 + (p6 - p8) * (p3 - p4) / (p2 - p4)) / (p5 - p7 + (p8 - p6) * (p1 - p3) / (p2 - p4));
-        std::cout << res << " " << eps <<"\n";
+        // std::cout << res << " " << eps <<"\n";
         return res;
     }
     return 0.0;
@@ -104,7 +129,6 @@ bool obj_geometry::calculate_points_for_one_surface(std::vector<Point> vertex){
         sides[i].x = sides[i].x * 1.0 / number_of_points[i % 2];
         sides[i].y = sides[i].y * 1.0 / number_of_points[i % 2];
         sides[i].z = sides[i].z * 1.0 / number_of_points[i % 2];
-        std::cout << number_of_points[i % 2] << std::endl;
     }
     for(size_t i = 0; i <= number_of_points[0]; i ++){ // теперь посчитаем все точки, который у нас есть
         for(size_t j = 0; j <= number_of_points[1]; j ++){

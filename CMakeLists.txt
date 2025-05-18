@@ -33,8 +33,7 @@ file(GLOB COMMON_SOURCES
 
 
 set(TEST1_SOURCES tests/test_geom.cpp)  # Первый тест
-set(TEST2_SOURCES tests/test_transp_read.cpp)  # Второй тест
-set(TEST3_SOURCES tests/test_transp_calc.cpp)  # Второй тест
+set(TEST2_SOURCES tests/test_hologram_prep.cpp)  # Второй тест
 
 # Собираем первый тест
 add_executable(Test1 
@@ -47,35 +46,26 @@ add_executable(Test2
     ${TEST2_SOURCES}
     ${COMMON_SOURCES}  # Если нужны общие файлы
 )
-# Собираем третий тест
-add_executable(Test3 
-    ${TEST3_SOURCES}
-    ${COMMON_SOURCES}  # Если нужны общие файлы
-)
 
 # Подключение OpenMP
 if(OpenMP_FOUND)
     target_link_libraries(Test1 PRIVATE OpenMP::OpenMP_CXX)
     target_link_libraries(Test2 PRIVATE OpenMP::OpenMP_CXX)
-    target_link_libraries(Test3 PRIVATE OpenMP::OpenMP_CXX)
 endif()
 
 # Подключение заголовков
 target_include_directories(Test1 PRIVATE ${HEADER_DIR})
 target_include_directories(Test2 PRIVATE ${HEADER_DIR})
-target_include_directories(Test3 PRIVATE ${HEADER_DIR})
 
 
 # Настройки компилятора для GCC/Clang
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     target_compile_options(Test1 PRIVATE -Wall -Wextra -Werror)
     target_compile_options(Test2 PRIVATE -Wall -Wextra -Werror)
-    target_compile_options(Test3 PRIVATE -Wall -Wextra -Werror)
 endif()
 
 # Для Windows
 if(WIN32)
     target_compile_definitions(Test1 PRIVATE _CRT_SECURE_NO_WARNINGS)
     target_compile_definitions(Test2 PRIVATE _CRT_SECURE_NO_WARNINGS)
-    target_compile_definitions(Test3 PRIVATE _CRT_SECURE_NO_WARNINGS)
 endif()

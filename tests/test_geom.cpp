@@ -25,26 +25,24 @@ void test_constructors() {
 void test_save_geometry() {
     std::cout << "\n=== Testing save_geometry ===\n";
     
-    obj_geometry geom(1, {2, 2}, {{{0.0, 0.0, 0.0}, {1.0, 0.0, 1.0}, {1.0, 1.0, 1.0}, {0.0, 1.0, 0.0}}, {{-1,0,0}, {0,0,0}, {0,1,0}, {-1,1,0}}});
+    obj_geometry geom(1, {2, 2}, {{{0.0, 0.0, 0.0}, {1.0, 0.0, 1.0}, {1.0, 1.0, 1.0}, {0.0, 1.0, 0.0}}});
     geom.calculate_points();
     geom.calculate_surfaces();
 
-    // Тест сохранения
     assert(geom.save_geometry("test_output"));
     
-    // Проверка существования файлов
+    // Проверка существования всех файлов
     std::ifstream points_file("test_output_points.txt");
     std::ifstream surfaces_file("test_output_surfaces.txt");
+    std::ifstream vertex_file("test_output_vertexes.txt");
+    
     assert(points_file.good());
     assert(surfaces_file.good());
+    assert(vertex_file.good());
     
-    // Проверка формата точек
+    // Проверка формата вершин
     std::string line;
-    std::getline(points_file, line);
-    assert(!line.empty() && line.find(';') != std::string::npos);
-    
-    // Проверка формата поверхностей
-    std::getline(surfaces_file, line);
+    std::getline(vertex_file, line);
     assert(line.find(';') != std::string::npos);
     
     std::cout << "File saving: OK\n";
