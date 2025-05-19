@@ -10,9 +10,9 @@ void processInput(GLFWwindow *window) {
     // reset
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
         cameraPos   = cameraStartPos;
-        yaw         = -90.0f;
-        pitch       =   0.0f;
-        cameraFront = {0.0f, 0.0f, -1.0f};
+        yaw         = startYaw;
+        pitch       = startPitch;
+        cameraFront = cameraStartFront;
     }
 
     float currentFrame = glfwGetTime();

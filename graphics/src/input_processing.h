@@ -9,13 +9,20 @@
 // ║ External variables ║
 // ╚════════════════════╝
 
+extern float startYaw;
 extern float yaw;
+
+extern float startPitch;
 extern float pitch;
+
 extern const float rotSpeed;
+
 extern glm::vec3 cameraStartPos;
 extern glm::vec3 cameraPos;
+extern glm::vec3 cameraStartFront;
 extern glm::vec3 cameraFront;
 extern glm::vec3 cameraUp;
+
 extern float deltaTime;
 extern float lastFrame;
 
