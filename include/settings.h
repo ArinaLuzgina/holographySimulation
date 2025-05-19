@@ -30,5 +30,7 @@ extern glm::vec3 cameraUp;
 extern float deltaTime;
 extern float lastFrame;
 
+// Plate
+extern const float scale;
 
 #endif // SETTINGS_H

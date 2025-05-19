@@ -2,6 +2,7 @@
 #include <array>
 
 #include "VBO.h"
+#include "settings.h"
 
 
 // ╔═══════════╗ 
@@ -11,15 +12,18 @@
 // Create a fullscreen quad VAO/VBO with position (loc=0) and UV (loc=1).
 // @returns {vao, vbo} pair, or {0, 0} on failure.
 std::pair<GLuint, GLuint> createQuadVAO() {
-    // vertex data: X, Y, Z, U, V
-    static constexpr std::array<float, 30> quadVerts = {
-        -1.0f,  1.0f, 0.0f,  0.0f, 1.0f,
-        -1.0f, -1.0f, 0.0f,  0.0f, 0.0f,
-         1.0f, -1.0f, 0.0f,  1.0f, 0.0f,
+    
+    float half_edge = 5.0f * scale;
 
-        -1.0f,  1.0f, 0.0f,  0.0f, 1.0f,
-         1.0f, -1.0f, 0.0f,  1.0f, 0.0f,
-         1.0f,  1.0f, 0.0f,  1.0f, 1.0f
+    // vertex data: X, Y, Z, U, V
+    static const std::array<float, 30> quadVerts = {
+        -half_edge,  half_edge, 0.0f,  0.0f, 1.0f,
+        -half_edge, -half_edge, 0.0f,  0.0f, 0.0f,
+         half_edge, -half_edge, 0.0f,  1.0f, 0.0f,
+
+        -half_edge,  half_edge, 0.0f,  0.0f, 1.0f,
+         half_edge, -half_edge, 0.0f,  1.0f, 0.0f,
+         half_edge,  half_edge, 0.0f,  1.0f, 1.0f
     };
 
     GLuint vao = 0, vbo = 0;

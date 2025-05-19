@@ -31,7 +31,7 @@ int main() {
 
     // Creating intensity distribution
     auto intensity = createIntensity(200, 200); 
-    fillRandom(intensity);
+    // fillRandom(intensity);
     
     runSimulation(intensity);
 
