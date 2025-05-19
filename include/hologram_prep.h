@@ -31,7 +31,7 @@ public:
     obj_plate(double scale, const std::vector<unsigned int>& number_of_points);
     
     bool readDataFromFile(const std::string& name, char delimiter = ';');
-    bool check_point_raw(double u, double s, double a, double b, double g);
+    bool check_point_ray(double u, double s, double a, double b, double g);
     bool calculate_intensity_matrix();
     double calculate_intensity_from_obj(double x, double y);
     bool saveIntensityToFile(const std::string& filename, char delimiter = ';');

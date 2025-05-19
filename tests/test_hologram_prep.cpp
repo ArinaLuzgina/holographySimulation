@@ -39,17 +39,17 @@ void test_read_data() {
 }
 
 void test_check_point() {
-    std::cout << "\n=== Testing check_point_raw ===\n";
+    std::cout << "\n=== Testing check_point_ray ===\n";
     
     obj_plate plate;
     plate.vertexes = {{{0,0,0.5}, {1,0,0.5}, {0,1,0.5}, {1,1,0.5}}};
     plate.surfaces = {{0, 0, 1, -0.5}}; // Уравнение плоскости: z = 0
 
     // Точка (0.5, 0.5, 2.0) → луч направлен вверх, не пересекает плоскость z=0
-    assert(plate.check_point_raw(0.5, 0.5, 0.5, 0.5, 2.0) == false);
+    assert(plate.check_point_ray(0.5, 0.5, 0.5, 0.5, 2.0) == false);
 
     // Точка (0.5, 0.5, 0.5) → луч пересекает плоскость z=0
-    assert(plate.check_point_raw(0.5, 0.5, 0.5, 0.5, -0.5) == true);
+    assert(plate.check_point_ray(0.5, 0.5, 0.5, 0.5, -0.5) == true);
         
     std::cout << "Intersection checks: OK\n";
 }

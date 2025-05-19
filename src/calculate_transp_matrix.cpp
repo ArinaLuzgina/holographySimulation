@@ -92,7 +92,7 @@ bool obj_plate::readDataFromFile(const std::string& name, char delimiter) {
         return true;
 }   
 
-bool obj_plate::check_point_raw(double u, double s, double a, double b, double g) {
+bool obj_plate::check_point_ray(double u, double s, double a, double b, double g) {
     // эта функция проверяет, что луч который идет от точки на объекте к точке на пластинке не пересекает 
     //нигде поверхноcть объекта (то есть то, что световой луч мог попасть в эту точку)
 
@@ -158,7 +158,7 @@ double obj_plate::calculate_intensity_from_obj(double x, double y) {
     #pragma omp parallel for reduction(+: I_res) num_threads(14)
 
     for(size_t ind = 0; ind < geom_matrix.size(); ind++) {
-        bool intersect = check_point_raw(x, y, geom_matrix[ind].x, geom_matrix[ind].y, geom_matrix[ind].z);
+        bool intersect = check_point_ray(x, y, geom_matrix[ind].x, geom_matrix[ind].y, geom_matrix[ind].z);
         if(intersect){
 
             const double j = geom_matrix[ind].x;
