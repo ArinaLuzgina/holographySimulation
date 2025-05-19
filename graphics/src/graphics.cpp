@@ -42,7 +42,9 @@ void runSimulation(std::vector<std::vector<double>>& intensity) {
 
         processInput(window);
 
+        // -------------------------------------
         // *Insert intensity recalculation here*
+        // -------------------------------------
         updateIntensityTexture(intensityTex, intensity);
 
         renderScene(window,
