@@ -3,8 +3,6 @@
 
 #include <vector> 
 #include <string>
-#include <fstream>
-#include <iostream>
 
 // Объявление структуры Point
 struct Point {

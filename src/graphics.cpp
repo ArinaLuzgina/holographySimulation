@@ -47,8 +47,7 @@ void runSimulation(std::vector<std::vector<double>>& intensity) {
         // -------------------------------------
         updateIntensityTexture(intensityTex, intensity);
 
-        renderScene(window,
-                    shaderProgram,
+        renderScene(shaderProgram,
                     intensityTex,
                     quadVAO);
 

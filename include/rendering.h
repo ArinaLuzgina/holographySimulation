@@ -27,8 +27,7 @@ extern glm::vec3 cameraUp;
 GLFWwindow* initWindow(int width, int height, const char* title); 
 
 // Make all recalculations
-void renderScene(GLFWwindow* window,
-                 GLuint shaderProgram,
+void renderScene(GLuint shaderProgram,
                  GLuint intensityTex,
                  GLuint quadVAO);
 

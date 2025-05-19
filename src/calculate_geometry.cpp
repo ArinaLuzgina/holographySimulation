@@ -1,4 +1,8 @@
+#include <fstream>
+#include <iostream>
+
 #include "geometry.h"
+
 obj_geometry::obj_geometry() 
     : scale(1e-6), 
       number_of_points{100, 100}, 

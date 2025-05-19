@@ -1,7 +1,9 @@
 // test_geometry.cpp
-#include "geometry.h"
+#include <fstream>
+#include <iostream>
 #include <cassert>
-#include <sstream>
+
+#include "geometry.h"
 
 void test_constructors() {
     std::cout << "=== Testing constructors ===\n";
