@@ -221,9 +221,9 @@ bool obj_geometry::calculate_points_for_one_surface(std::vector<Point> vertex){
             v = eps * 5;
             if(v > eps){
                 if(flag){
-                    p.x = vertex[0].x + sup_vec[0].x + sup_vec[3].x;
-                    p.y = vertex[0].y + sup_vec[0].y + sup_vec[3].y;
-                    p.z = vertex[0].z + sup_vec[0].z + sup_vec[3].z;
+                    p.x = vertex[0].x * scale + sup_vec[0].x + sup_vec[3].x;
+                    p.y = vertex[0].y * scale + sup_vec[0].y + sup_vec[3].y;
+                    p.z = vertex[0].z * scale + sup_vec[0].z + sup_vec[3].z;
                     // p.x = sup_vec[2].x + (sup_vec[0].x - sup_vec[2].x) * v ;//+ vertex[0].x * scale;
                     // p.y = sup_vec[2].y + (sup_vec[0].y - sup_vec[2].y) * v ;//+ vertex[0].y * scale;
                     // p.z = sup_vec[2].z + (sup_vec[0].z - sup_vec[2].z) * v ;//+ vertex[0].z * scale;

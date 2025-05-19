@@ -30,7 +30,7 @@ void fillRandom(std::vector<std::vector<double>>& intensity) {
 int main() {
 
     // Creating intensity distribution
-    auto intensity = createIntensity(2000, 2000); 
+    auto intensity = createIntensity(200, 200); 
     fillRandom(intensity);
     
     runSimulation(intensity);
