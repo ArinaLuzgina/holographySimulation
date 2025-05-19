@@ -88,7 +88,7 @@ foreach(target create_geometry create_transp_matrix main Test1 Test2 Test3)
     
     # Настройки компилятора
     if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-        target_compile_options(${target} PRIVATE -Wall -Wextra)
+        target_compile_options(${target} PRIVATE -Wall)
     endif()
     
     # Для Windows
