@@ -70,7 +70,7 @@ void renderScene(GLuint shaderProgram,
     glm::mat4 projection = glm::perspective(
         glm::radians(45.0f),
         float(SCR_WIDTH) / SCR_HEIGHT,
-        0.1f * scale, 100.0f * scale
+        0.01f * scale, 100.0f * scale
     );
 
     GLint locModel      = glGetUniformLocation(shaderProgram, "model");
