@@ -15,6 +15,7 @@ extern float yaw;
 extern float startPitch;
 extern float pitch;
 
+extern const float moveSpeed;
 extern const float rotSpeed;
 
 extern glm::vec3 cameraStartPos;

@@ -18,7 +18,7 @@ void processInput(GLFWwindow *window) {
     float currentFrame = glfwGetTime();
     deltaTime = currentFrame - lastFrame;
     lastFrame = currentFrame;
-    float camSpeed = 2.5f * deltaTime;
+    float camSpeed = moveSpeed * deltaTime;
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
         cameraPos += camSpeed * cameraFront;
