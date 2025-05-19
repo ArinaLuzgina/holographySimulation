@@ -62,13 +62,15 @@ set(COMMON_SOURCES
 )
 
 # Исполняемые файлы
+add_executable(create_geometry src/make_geom.cpp ${COMMON_SOURCES})
+add_executable(create_transp_matrix src/make_transp_matrix.cpp ${COMMON_SOURCES})
 add_executable(main src/main.cpp ${COMMON_SOURCES})
 add_executable(Test1 tests/test_geom.cpp ${COMMON_SOURCES})
 add_executable(Test2 tests/test_hologram_prep.cpp ${COMMON_SOURCES})
 add_executable(Test3 tests/test_visible_field.cpp ${COMMON_SOURCES})
 
 # Общие настройки для всех целей
-foreach(target main Test1 Test2 Test3)
+foreach(target create_geometry create_transp_matrix main Test1 Test2 Test3)
     # Подключение заголовков
     target_include_directories(${target} PRIVATE
         ${HEADER_DIR}

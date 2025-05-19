@@ -17,10 +17,11 @@ class obj_plate {
 public:
     double scale; 
     std::vector<unsigned int> number_of_points;
-    double cos_alpha = cos(M_PI / 6);
+    double cos_alpha = cos(M_PI / 18);
     double I = 1.0;
     double lamb = 555 * 1e-9;
     double k = 2 * M_PI / lamb;
+    double width, height;
     std::vector<std::vector<double>> intensity_matrix;
     std::vector<Point> geom_matrix;
     std::vector<std::vector<double>> surfaces;
@@ -28,7 +29,7 @@ public:
 
 
     obj_plate();
-    obj_plate(double scale, const std::vector<unsigned int>& number_of_points);
+    obj_plate(double scale, const std::vector<unsigned int>& number_of_points, double width, double height);
     
     bool readDataFromFile(const std::string& name, char delimiter = ';');
     bool check_point_ray(double u, double s, double a, double b, double g);

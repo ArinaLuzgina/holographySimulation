@@ -3,15 +3,19 @@
 obj_plate::obj_plate()
     :
     scale(1e-6),
-    number_of_points{100, 100}
+    number_of_points{100, 100},
+    width(10.0),
+    height(10.0)
     {
         intensity_matrix.resize(number_of_points[0], std::vector<double>(number_of_points[1]));
     }
 
-obj_plate::obj_plate(double scale,const std::vector<unsigned int>& number_of_points)
+obj_plate::obj_plate(double scale,const std::vector<unsigned int>& number_of_points, double width, double height)
     : 
     scale(scale),
-    number_of_points(number_of_points)
+    number_of_points(number_of_points),
+    width(width),
+    height(height)
     {
         intensity_matrix.resize(number_of_points[0], std::vector<double>(number_of_points[1]));
     }
@@ -171,28 +175,35 @@ double obj_plate::calculate_intensity_from_obj(double x, double y) {
     return I_res;
 }
 
-bool obj_plate::calculate_intensity_matrix(){
+bool obj_plate::calculate_intensity_matrix() {
     double I_max = 0.0;
+    const double stepx = width * scale / number_of_points[1];
+    const double stepy = height * scale / number_of_points[0];
 
+    // Первый этап: вычисление интенсивностей и поиск максимума
     #pragma omp parallel for collapse(2) reduction(max: I_max) num_threads(14)
+    for (size_t yp = 0; yp < number_of_points[0]; ++yp) {
+        for (size_t xp = 0; xp < number_of_points[1]; ++xp) {
+            const double intensity = calculate_intensity_from_obj(xp * stepx, yp * stepy);
+            intensity_matrix[yp][xp] = intensity;
 
-    for(size_t yp = 0; yp < number_of_points[0]; yp++){
-        for(size_t xp = 0; xp < number_of_points[1]; xp ++){
-            intensity_matrix[yp][xp] = calculate_intensity_from_obj(xp * scale, yp * scale);
-            #pragma omp critical
-            if(I_max < intensity_matrix[yp][xp]){
-                I_max = intensity_matrix[yp][xp];
+            // Редукция через max (критическая секция больше не нужна)
+            if (intensity > I_max) {
+                I_max = intensity;
             }
         }
     }
-    if(I_max != 0){
-    #pragma omp parallel for collapse(2) num_threads(14)
-    for(size_t yp = 0; yp < number_of_points[0]; yp++){
-        for(size_t xp = 0; xp < number_of_points[1]; xp ++){
-            intensity_matrix[yp][xp] /= I_max;
+
+    // Нормализация
+    if (I_max != 0.0) {
+        #pragma omp parallel for collapse(2) num_threads(14)
+        for (size_t yp = 0; yp < number_of_points[0]; ++yp) {
+            for (size_t xp = 0; xp < number_of_points[1]; ++xp) {
+                intensity_matrix[yp][xp] /= I_max;
+            }
         }
-    }   
     }
+
     return true;
 }
 
@@ -218,5 +229,4 @@ bool obj_plate::saveIntensityToFile(const std::string& filename, char delimiter)
     file.close();
     return true;
 }
-
 

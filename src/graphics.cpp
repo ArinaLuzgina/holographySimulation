@@ -9,6 +9,7 @@
 
 #include "graphics.h"
 
+#include "visible_field.h"
 
 // ╔═══════════╗ 
 // ║ Functions ║
@@ -36,6 +37,8 @@ void runSimulation(std::vector<std::vector<double>>& intensity) {
     auto [quadVAO, quadVBO] = createQuadVAO();
     assert(quadVAO != 0);
 
+    obj_visible_plate v_plate(1e-6);
+    v_plate.read_intensity_matrix("book_intensity.txt");
 
     // Main loop
     while (!glfwWindowShouldClose(window)) {
@@ -44,9 +47,9 @@ void runSimulation(std::vector<std::vector<double>>& intensity) {
 
         // -------------------------------------
         // *Insert intensity recalculation here*
+        v_plate.update_visible_matrix(cameraPos.x, cameraPos.y, cameraPos.z);
         // -------------------------------------
-        updateIntensityTexture(intensityTex, intensity);
-
+        updateIntensityTexture(intensityTex, v_plate.visible_matrix);
         renderScene(shaderProgram,
                     intensityTex,
                     quadVAO);
