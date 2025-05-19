@@ -1,5 +1,4 @@
 #include "settings.h"
-#include "glm/detail/type_float.hpp"
 
 // Window dimensions
 const unsigned int SCR_WIDTH  = 1280;
