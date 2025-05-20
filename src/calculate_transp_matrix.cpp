@@ -168,7 +168,7 @@ double obj_plate::calculate_intensity_from_obj(double x, double y) {
             const double j = geom_matrix[ind].x;
             const double i_val = geom_matrix[ind].y;
             const double r_sq = (j - x) * (j - x) + (i_val - y) * (i_val - y) + geom_matrix[ind].z * geom_matrix[ind].z;
-            const double delta = sqrt(r_sq) - geom_matrix[ind].z / cos_alpha;
+            const double delta = sqrt(r_sq) - geom_matrix[ind].x * sin_alpha;
             I_res += 2 * I * (1 + cos(k * delta));
         }
     }
@@ -227,6 +227,7 @@ bool obj_plate::saveIntensityToFile(const std::string& filename, char delimiter)
     }
 
     file.close();
+    std::cout << "intensity has been saved\n";
     return true;
 }
 

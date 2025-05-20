@@ -17,7 +17,7 @@ class obj_plate {
 public:
     double scale; 
     std::vector<unsigned int> number_of_points;
-    double cos_alpha = cos(M_PI / 18);
+    double sin_alpha = sin(M_PI / 18);
     double I = 1.0;
     double lamb = 555 * 1e-9;
     double k = 2 * M_PI / lamb;

@@ -266,7 +266,7 @@ bool obj_geometry::calculate_surface(std::vector<Point> vertex){
 
 bool obj_geometry::calculate_points(){
     for(size_t c = 0; c < vertexes.size(); c++){
-        points.push_back(vertexes[c][0]);
+        points.push_back({vertexes[c][0].x * scale, vertexes[c][0].y * scale, vertexes[c][0].z * scale});
         calculate_points_for_one_surface(vertexes[c]);
     }
     return true;
