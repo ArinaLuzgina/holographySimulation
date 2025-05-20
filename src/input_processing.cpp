@@ -1,5 +1,7 @@
-#include "input_processing.h"
+#include "textures.h"
+#include "visible_field.h"
 
+#include "input_processing.h"
 
 // ╔═══════════╗ 
 // ║ Functions ║
@@ -9,10 +11,11 @@
 void processInput(GLFWwindow *window) {
     // reset
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
-        cameraPos   = cameraStartPos;
-        yaw         = startYaw;
-        pitch       = startPitch;
-        cameraFront = cameraStartFront;
+        // -------------------------------------
+        // Intensity recalculation
+        v_plate.update_visible_matrix(cameraPos.x, cameraPos.y, cameraPos.z);
+        // -------------------------------------
+        updateIntensityTexture(intensityTex, v_plate.visible_matrix);
     }
 
     float currentFrame = glfwGetTime();

@@ -45,6 +45,10 @@ GLFWwindow* initWindow(int width, int height, const char* title) {
     // 6) any other per-window GL state
     glEnable(GL_DEPTH_TEST);
 
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+
     // **finally** return the valid window pointer
     return window;
 }

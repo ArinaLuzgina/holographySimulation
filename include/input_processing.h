@@ -4,6 +4,8 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
+#include "visible_field.h"
+
 
 // ╔════════════════════╗ 
 // ║ External variables ║
@@ -26,6 +28,10 @@ extern glm::vec3 cameraUp;
 
 extern float deltaTime;
 extern float lastFrame;
+
+extern obj_visible_plate v_plate;
+
+extern GLuint intensityTex;
 
 
 

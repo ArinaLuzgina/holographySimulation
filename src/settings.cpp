@@ -1,4 +1,5 @@
 #include "settings.h"
+#include "input_processing.h"
 
 // Window dimensions
 const unsigned int SCR_WIDTH  = 1280;
@@ -27,3 +28,7 @@ float lastFrame = 0.0f;
 
 // Plate
 const float scale = 1e-6;
+
+
+obj_visible_plate v_plate; 
+GLuint intensityTex = 0;
