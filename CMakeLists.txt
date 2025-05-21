@@ -1,5 +1,4 @@
 cmake_minimum_required(VERSION 3.19)
-
 project(holography LANGUAGES C CXX)
 
 # Настройка стандарта C++20 и оптимизации
@@ -8,18 +7,22 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 add_compile_options(-O3)
 
-
-# Написать многабукав для clangd, чтобы не ругался сильно
+# Для clangd
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-
-# Поиск и подключение OpenMP (современный способ)
+# Поиск зависимостей
 find_package(OpenMP REQUIRED)
+# find_package(PkgConfig REQUIRED)  # Добавлено
+# pkg_check_modules(FFTW REQUIRED fftw3)  # Используем pkg-config
+# Ручное указание путей (для подстраховки)
+# Ручное указание путей к FFTW (для Ubuntu)
+set(FFTW_INCLUDE_DIRS "/usr/include")
+set(FFTW_LIBRARIES "/usr/lib/x86_64-linux-gnu/libfftw3.so")
+find_package(Eigen3 REQUIRED)
 
 # Настройка FetchContent
 include(FetchContent)
 
-# GLFW
 FetchContent_Declare(
   glfw
   GIT_REPOSITORY https://github.com/glfw/glfw.git
@@ -27,7 +30,6 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(glfw)
 
-# GLAD (требует дополнительной настройки)
 FetchContent_Declare(
   glad
   GIT_REPOSITORY https://github.com/Dav1dde/glad.git
@@ -35,7 +37,6 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(glad)
 
-# GLM (заголовочная библиотека)
 FetchContent_Declare(
   glm
   GIT_REPOSITORY https://github.com/g-truc/glm.git
@@ -43,11 +44,11 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(glm)
 
-# Настройка путей
+# Пути
 set(HEADER_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
-# Сборка общих исходников (лучше явно перечислить файлы)
+# Общие исходники
 set(COMMON_SOURCES
     ${SOURCE_DIR}/calculate_geometry.cpp
     ${SOURCE_DIR}/calculate_transp_matrix.cpp
@@ -67,37 +68,37 @@ add_executable(create_transp_matrix src/make_transp_matrix.cpp ${COMMON_SOURCES}
 add_executable(main src/main.cpp ${COMMON_SOURCES})
 add_executable(Test1 tests/test_geom.cpp ${COMMON_SOURCES})
 add_executable(Test2 tests/test_hologram_prep.cpp ${COMMON_SOURCES})
-add_executable(Test3 tests/test_visible_field.cpp ${COMMON_SOURCES})
+#add_executable(Test3 tests/test_visible_field.cpp ${COMMON_SOURCES})
 
-# Общие настройки для всех целей
-foreach(target create_geometry create_transp_matrix main Test1 Test2 Test3)
-    # Подключение заголовков
+# Настройки для всех целей
+foreach(target create_geometry create_transp_matrix main Test1 Test2 )#Test3)
     target_include_directories(${target} PRIVATE
         ${HEADER_DIR}
+        ${FFTW_INCLUDE_DIRS}
         ${glad_SOURCE_DIR}/include
         ${glm_SOURCE_DIR}
+        ${Eigen3_INCLUDE_DIRS}
     )
     
-    # Подключение библиотек
     target_link_libraries(${target} PRIVATE
+        ${FFTW_LIBRARIES}
         OpenMP::OpenMP_CXX
         glfw
         glad
         glm::glm
+        Eigen3::Eigen
     )
-    
-    # Настройки компилятора
+
     if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-        target_compile_options(${target} PRIVATE -Wall)
+        target_compile_options(${target} PRIVATE  -ffast-math)
     endif()
     
-    # Для Windows
     if(WIN32)
         target_compile_definitions(${target} PRIVATE _CRT_SECURE_NO_WARNINGS)
     endif()
 endforeach()
 
-# Специфичные настройки для GLAD (если требуется)
+# Дополнительные настройки для GLAD
 if(TARGET glad)
     target_compile_definitions(glad PRIVATE GLAD_GL_IMPLEMENTATION)
 endif()

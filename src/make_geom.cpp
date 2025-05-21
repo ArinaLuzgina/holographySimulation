@@ -10,3 +10,7 @@ int main(){
     geom_book.save_geometry("geom_book_2");
     return 0;
 }
+
+//for point
+// std::vector<std::vector<Point>> vertices = {{{5.0, 5.0, 5.0}, {5.01, 5.0, 5.0}, {5.01, 5.01, 5.0}, {5.0, 5.01, 5.0}}};
+// std::vector<std::vector<Point>> vertices = {}

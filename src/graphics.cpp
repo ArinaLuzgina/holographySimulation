@@ -43,6 +43,7 @@ void runSimulation(std::vector<std::vector<double>>& intensity) {
     // Main loop
     while (!glfwWindowShouldClose(window)) {
 
+        
         processInput(window);
 
         renderScene(shaderProgram,

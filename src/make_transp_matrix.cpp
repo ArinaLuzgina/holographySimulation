@@ -7,7 +7,7 @@ int main(){
     double width = 10.0;
     double height = 10.0;
     double scale = 1e-6;
-    std::vector<unsigned int> np = {500, 500};
+    std::vector<unsigned int> np = {1024, 1024};
     obj_plate plate(scale, np, width, height);
     plate.readDataFromFile(name_from);
     plate.calculate_intensity_matrix();

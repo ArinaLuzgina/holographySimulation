@@ -13,7 +13,7 @@ float yaw        = startYaw;
 float startPitch = 0.0f;
 float pitch      = startPitch;
 
-const float moveSpeed = 1e-5;
+const float moveSpeed = 5e-6;
 const float rotSpeed  = 45.0f; // deg/sec
 
 glm::vec3 cameraStartPos   = {0.0f, 0.0f, 3e-6};

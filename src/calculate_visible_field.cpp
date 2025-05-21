@@ -1,129 +1,107 @@
 #include "visible_field.h"
+#include <fstream>
+#include <algorithm>
+#include <cmath>
+#include <fftw3.h>
 
-obj_visible_plate::obj_visible_plate(): scale(1e-6){}
-
+obj_visible_plate::obj_visible_plate() : scale(1e-6) {}
 obj_visible_plate::obj_visible_plate(double scale) : scale(scale) {}
-
 
 bool obj_visible_plate::read_intensity_matrix(const std::string& filename) {
     std::ifstream file(filename);
-    
-    if (!file.is_open()) {
-        throw std::runtime_error("Cannot open file: " + filename);
-    }
+    if (!file.is_open()) return false;
 
+    transp_matrix.clear();
     std::string line;
     while (std::getline(file, line)) {
-        // Заменяем разделители на пробелы
         std::replace(line.begin(), line.end(), ';', ' ');
-        
         std::vector<double> row;
+        double val;
         std::istringstream iss(line);
-        double value;
-        
-        while (iss >> value) {
-            row.push_back(value);
-        }
-        
-        if (!row.empty()) {
-            transp_matrix.push_back(row);
-            visible_matrix.push_back(row);
-        }
+        while (iss >> val) row.push_back(val);
+        if (!row.empty()) transp_matrix.push_back(row);
     }
-    
-    file.close();
     return true;
+}
+
+MatrixXd obj_visible_plate::fftshift(const MatrixXd& matrix) {
+    int rows = matrix.rows();
+    int cols = matrix.cols();
+    MatrixXd shifted(rows, cols);
+    int half_r = rows/2, half_c = cols/2;
+    shifted << matrix.bottomRightCorner(half_r, half_c),
+               matrix.bottomLeftCorner(half_r, half_c),
+               matrix.topRightCorner(half_r, half_c),
+               matrix.topLeftCorner(half_r, half_c);
+    return shifted;
 }
 
 bool obj_visible_plate::update_visible_matrix(double x, double y, double z) {
-    const size_t rows = visible_matrix.size();
-    if (rows == 0) return false;
-    const size_t cols = visible_matrix[0].size();
-    if (transp_matrix.size() != rows || transp_matrix[0].size() != cols) return false;
-
-    // Precompute constants
-    const double stepx = width * scale / number_of_points[1];
-    const double stepy = height * scale / number_of_points[0];
-    const double pre_x = x  - width * scale / 2.0;
-    const double pre_y = y - height * scale / 2.0; // Возможна ошибка: должно быть height?
-    const double pre_z = z;
+    const int rows = transp_matrix.size();
+    const int cols = transp_matrix[0].size();
+    
+    // Precompute parameters
+    const double stepx = width * scale / cols;
+    const double stepy = height * scale / rows;
+    const double pre_x = x - width * scale / 2.0;
+    const double pre_y = y - height * scale / 2.0;
     const double k_sin_alpha = k * sin_alpha;
 
-    // Precompute delta1 matrix
-    std::vector<std::vector<double>> delta1_precomputed(rows, std::vector<double>(cols));
-    for (size_t y_t = 0; y_t < rows; ++y_t) {
-        for (size_t x_t = 0; x_t < cols; ++x_t) {
-            const double tx = x_t * stepx;
-            const double ty = y_t * stepy;
-            delta1_precomputed[y_t][x_t] = tx * k_sin_alpha;
+    // FFT preparation
+    fftw_complex* in = (fftw_complex*)fftw_malloc(sizeof(fftw_complex)*rows*cols);
+    fftw_complex* out = (fftw_complex*)fftw_malloc(sizeof(fftw_complex)*rows*cols);
+    fftw_plan plan = fftw_plan_dft_2d(rows, cols, in, out, FFTW_FORWARD, FFTW_ESTIMATE);
+
+    // Fill input
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            int idx = i*cols + j;
+            in[idx][0] = transp_matrix[i][j] * cos(k_sin_alpha * ( j*stepx));
+            in[idx][1] = transp_matrix[i][j] * sin(k_sin_alpha * ( j*stepx));
         }
     }
 
-    // Main processing
-    double I_max = 0.0;
-    std::vector<std::vector<double>> visible_field_m(rows, std::vector<double>(cols));
+    // Execute FFT
+    fftw_execute(plan);
 
-    #pragma omp parallel for reduction(max:I_max) schedule(dynamic)
-    for (size_t y_v = 0; y_v < rows; ++y_v) {
-        for (size_t x_v = 0; x_v < cols; ++x_v) { 
-            const double dx0 = pre_x + x_v * stepx;
-            const double dy0 = pre_y + y_v * stepy; 
-            const double r_0 = std::sqrt(dx0*dx0 + dy0*dy0 + pre_z*pre_z);
+    // Process output
+    MatrixXd reconstructed(rows, cols);
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            const double x_point = j*stepx;
+            const double y_point = i*stepy;
             
-            double I_res = 0.0;
-            for (size_t y_t = 0; y_t < rows; ++y_t) {
-                const double dy_step = y_t * stepx;
-                for (size_t x_t = 0; x_t < cols; ++x_t) {
-                    const double dx = dx0 - x_t * stepx;
-                    const double dy = dy0 - dy_step;
-                    const double r = std::sqrt(dx*dx + dy*dy + pre_z*pre_z);
-                    
-                    const double delta = k * (r - r_0) - delta1_precomputed[y_t][x_t];
-                    I_res += transp_matrix[y_t][x_t] * std::cos(delta);
-                }
-            }
-            
-            visible_field_m[y_v][x_v] = I_res;
-            I_max = std::max(I_max, std::fabs(I_res));
+            // Calculate distance to camera
+            const double dx = x - x_point;
+            const double dy = y - y_point;
+            const double dz = z;
+            const double r = sqrt(dx*dx + dy*dy + dz*dz);
+            reconstructed(i,j) = out[i*cols+j][0]*out[i*cols+j][0] * cos(k * r) * cos(k * r) 
+                               + out[i*cols+j][1]*out[i*cols+j][1] * sin(k * r) * sin(k * r);
         }
     }
 
-    // Normalization
-    const double inv_I_max = 1.0 / I_max;
-    #pragma omp parallel for
-    for (size_t y_v = 0; y_v < rows; ++y_v) {
-        for (size_t x_v = 0; x_v < cols; ++x_v) {
-            visible_matrix[y_v][x_v] = visible_field_m[y_v][x_v] * inv_I_max;
-        }
-    }
+    // Apply fftshift and normalize
+    // Apply fftshift and normalize
+    reconstructed = fftshift(reconstructed);
+
+    // Новая нормировка
+    double max_val = reconstructed.maxCoeff();
+    if (max_val < 1e-9) max_val = 1e-9; // Защита от нуля
+    reconstructed.array() *= (1000.0 / max_val); // Умножаем на 1000/max_val
+
+    // Обрезка значений до [0, 1] (опционально)
+    reconstructed = reconstructed.cwiseMax(0.0).cwiseMin(1.0);
+    // Update visible matrix
     
+    visible_matrix.resize(rows, std::vector<double>(cols));
+    for (int i = 0; i < rows; ++i)
+        for (int j = 0; j < cols; ++j)
+            visible_matrix[i][j] = reconstructed(i,j);
+
+    // Cleanup
+    fftw_destroy_plan(plan);
+    fftw_free(in);
+    fftw_free(out);
     return true;
 }
-
-// bool obj_visible_plate::readPointsFromFile(const std::string& name, char delimiter) {
-//     // Очищаем предыдущие данные
-//     geom_matrix.clear();
-
-//     // Чтение точек из _points.txt
-//     const std::string points_file = name + "_points.txt";
-//     std::ifstream pfile(points_file);
-//     if (!pfile.is_open()) {
-//         std::cerr << "Error: Can't open points file " << points_file << "\n";
-//         return false;
-//     }
-
-//     std::string line;
-//     while (std::getline(pfile, line)) {
-//         std::replace(line.begin(), line.end(), delimiter, ' ');
-//         std::istringstream iss(line);
-//         Point p;
-//         if (!(iss >> p.x >> p.y >> p.z)) {
-//             std::cerr << "Error: Invalid point format in line: " << line << "\n";
-//             return false;
-//         }
-//         geom_matrix.push_back(p);
-//     }
-//     pfile.close();
-
-//     return true;
-// }   
