@@ -167,9 +167,12 @@ double obj_plate::calculate_intensity_from_obj(double x, double y) {
 
             const double j = geom_matrix[ind].x;
             const double i_val = geom_matrix[ind].y;
-            const double r_sq = (j - x) * (j - x) + (i_val - y) * (i_val - y) + geom_matrix[ind].z * geom_matrix[ind].z;
+            double r_sq = (j - x) * (j - x) + (i_val - y) * (i_val - y) + geom_matrix[ind].z * geom_matrix[ind].z;
             const double delta = sqrt(r_sq) - geom_matrix[ind].x * sin_alpha;
-            I_res += 2 * I * (1 + cos(k * delta));
+            if(r_sq < scale * 1e-9){
+                r_sq = scale * 1e-9;
+            }
+            I_res += 2 * I * (1 + cos(k * delta)) / sqrt(r_sq);
         }
     }
     return I_res;

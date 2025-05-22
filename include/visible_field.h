@@ -18,7 +18,7 @@ std::vector<std::vector<double>> visible_matrix;
     // Параметры системы
     double width = 10;     // 1 mm
     double height = 10;    // 1 mm
-    std::vector<unsigned int> number_of_points{1024, 1024};
+    std::vector<unsigned int> number_of_points{2048, 2048};
     double k = 2*M_PI / 555e-9;
     double sin_alpha = sin(M_PI / 18);
 

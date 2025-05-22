@@ -15,7 +15,7 @@ void processInput(GLFWwindow *window) {
         // Intensity recalculation
         v_plate.update_visible_matrix(cameraPos.x, cameraPos.y, cameraPos.z);
         // -------------------------------------
-        updateIntensityTexture(intensityTex, v_plate.visible_matrix);
+        updateIntensityTexture(intensityTex, v_plate.transp_matrix);
     }
 
     float currentFrame = glfwGetTime();
