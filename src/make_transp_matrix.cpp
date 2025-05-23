@@ -2,8 +2,8 @@
 
 int main(){
 
-    std::string name_from = "geom_book";
-    std::string name_to = "book_intensity.txt";
+    std::string name_from = "geom_book_sq";
+    std::string name_to = "book_intensity_sq.txt";
     double width = 10.0;
     double height = 10.0;
     double scale = 1e-6;

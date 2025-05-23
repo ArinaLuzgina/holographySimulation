@@ -189,8 +189,6 @@ bool obj_plate::calculate_intensity_matrix() {
         for (size_t xp = 0; xp < number_of_points[1]; ++xp) {
             const double intensity = calculate_intensity_from_obj(xp * stepx, yp * stepy);
             intensity_matrix[yp][xp] = intensity;
-
-            // Редукция через max (критическая секция больше не нужна)
             if (intensity > I_max) {
                 I_max = intensity;
             }

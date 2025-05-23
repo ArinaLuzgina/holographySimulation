@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.2.2)  23 MAY 2025 14:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.2.2)  23 MAY 2025 14:58
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -968,17 +968,23 @@ No file main.bbl.
 [3 <./images/point_interf.png> <./images/point1.png> <./images/point2.png> <./i
 mages/point4.png>] [4 <./images/book.jpeg> <./images/sq_interf.png> <./images/s
 creen1.png> <./images/sq_2.png>] (./main.aux)
-Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 6AD08AECD3041A82EB8251663D4DB13B;3252.
+
+Package rerunfilecheck Warning: File `main.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `main.out':
+(rerunfilecheck)             Before: 6AD08AECD3041A82EB8251663D4DB13B;3252
+(rerunfilecheck)             After:  C6B3BF23A31E9117E63FF1F6D84C7B6A;3236.
  ) 
 Here is how much of TeX's memory you used:
  16306 strings out of 478287
- 259570 string characters out of 5849290
+ 259572 string characters out of 5849290
  611641 words of memory out of 5000000
  34155 multiletter control sequences out of 15000+600000
  487922 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 94i,8n,92p,1257b,421s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 94i,8n,92p,1248b,421s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t2a.enc}</usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist
@@ -993,7 +999,7 @@ sfrm0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0900.pfb></usr/s
 hare/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/typ
 e1/public/cm-super/sfti0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/s
 ftt1000.pfb>
-Output written on main.pdf (4 pages, 1495099 bytes).
+Output written on main.pdf (4 pages, 1494630 bytes).
 PDF statistics:
  216 PDF objects out of 1000 (max. 8388607)
  170 compressed objects within 2 object streams
