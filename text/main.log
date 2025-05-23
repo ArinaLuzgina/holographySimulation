@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.2.2)  23 MAY 2025 00:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.2.2)  23 MAY 2025 14:28
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -837,129 +837,129 @@ Class revtex4-1 Info: Taking \maketitle back from hyperref on input line 13.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\\' on input line 27.
+(hyperref)                removing `\\' on input line 26.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 27.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 26.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 27.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 26.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 26--26
  \T2A/cmr/m/n/8 https://old.mipt.ru/education/chair/physics/laboratornyy-
  []
 
 
-Underfull \hbox (badness 2351) in paragraph at lines 58--59
+Underfull \hbox (badness 2351) in paragraph at lines 57--58
  \T2A/cmr/m/n/10 ная кар-ти-на, где за-пи-сы-ва-ет-ся амплитудно-
  []
 
 
-Underfull \hbox (badness 1721) in paragraph at lines 84--85
+Underfull \hbox (badness 1721) in paragraph at lines 83--84
  []\T2A/cmr/bx/n/10 Нулевой-дифракционный пу-чок \T2A/cmr/m/n/10 (ну-ле-вой
  []
 
 [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 98--100
+Underfull \hbox (badness 10000) in paragraph at lines 97--99
  []\T2A/cmr/bx/n/10 Генерация гео-мет-рии объ-ек-та\T2A/cmr/m/n/10 : Мо-дуль
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 104--106
+Underfull \hbox (badness 10000) in paragraph at lines 103--105
  []\T2A/cmr/bx/n/10 Восстановление изоб-ра-же-ния\T2A/cmr/m/n/10 : Мо-дуль
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 107--109
+Underfull \hbox (badness 10000) in paragraph at lines 106--108
  []\T2A/cmr/bx/n/10 Визуализация\T2A/cmr/m/n/10 : Ис-поль-зу-ет-ся биб-лио-те-к
 а
  []
 
 
-Underfull \hbox (badness 4291) in paragraph at lines 107--109
+Underfull \hbox (badness 4291) in paragraph at lines 106--108
  \T2A/cmr/m/n/10 OpenGL для отоб-ра-же-ния вос-ста-нов-лен-но-го
  []
 
 LaTeX Font Info:    Trying to load font information for T2A+cmtt on input line 
-121.
+120.
 (/usr/share/texlive/texmf-dist/tex/latex/cyrillic/t2acmtt.fd
 File: t2acmtt.fd 2001/08/11 v1.0a Computer Modern Cyrillic font definitions
 )
-Overfull \hbox (9.9436pt too wide) in paragraph at lines 130--130
+Overfull \hbox (9.9436pt too wide) in paragraph at lines 129--129
  []\T2A/cmtt/m/n/10 std::vector<std::vector<Point>> vertexes = {[] 
  []
 
 
-Overfull \hbox (15.19232pt too wide) in paragraph at lines 130--130
+Overfull \hbox (15.19232pt too wide) in paragraph at lines 129--129
  []\T2A/cmtt/m/n/10 { {0, 0, 0}, {1, 0, 0}, {0, 1, 0}, {1, 1, 0}}[] 
  []
 
 
-Overfull \hbox (15.19232pt too wide) in paragraph at lines 145--145
+Overfull \hbox (15.19232pt too wide) in paragraph at lines 144--144
  []\T2A/cmtt/m/n/10 std::string name_from = "file_with_geometry";[] 
  []
 
 
-Overfull \hbox (9.9436pt too wide) in paragraph at lines 145--145
+Overfull \hbox (9.9436pt too wide) in paragraph at lines 144--144
  []\T2A/cmtt/m/n/10 std::vector<unsigned int> np = {1024, 1024};[] 
  []
 
 
-Overfull \hbox (20.44104pt too wide) in paragraph at lines 165--165
+Overfull \hbox (20.44104pt too wide) in paragraph at lines 164--164
  []\T2A/cmtt/m/n/10 std::string name_from = "file_with_intensity";[] 
  []
 
 <images/point_interf.png, id=104, 602.25pt x 594.22pt>
 File: images/point_interf.png Graphic file (type png)
 <use images/point_interf.png>
-Package pdftex.def Info: images/point_interf.png  used on input line 175.
+Package pdftex.def Info: images/point_interf.png  used on input line 174.
 (pdftex.def)             Requested size: 107.10342pt x 105.66747pt.
 <images/point1.png, id=105, 636.3775pt x 590.205pt>
 File: images/point1.png Graphic file (type png)
 <use images/point1.png>
-Package pdftex.def Info: images/point1.png  used on input line 181.
+Package pdftex.def Info: images/point1.png  used on input line 180.
 (pdftex.def)             Requested size: 107.10342pt x 99.32486pt.
 <images/point2.png, id=106, 945.5325pt x 642.4pt>
 File: images/point2.png Graphic file (type png)
 <use images/point2.png>
-Package pdftex.def Info: images/point2.png  used on input line 186.
+Package pdftex.def Info: images/point2.png  used on input line 185.
 (pdftex.def)             Requested size: 107.10342pt x 72.76189pt.
 <images/point4.png, id=107, 491.8375pt x 542.025pt>
 File: images/point4.png Graphic file (type png)
 <use images/point4.png>
-Package pdftex.def Info: images/point4.png  used on input line 191.
+Package pdftex.def Info: images/point4.png  used on input line 190.
 (pdftex.def)             Requested size: 107.10342pt x 118.03008pt.
 <images/book.jpeg, id=108, 1284.8pt x 633.36626pt>
 File: images/book.jpeg Graphic file (type jpg)
 <use images/book.jpeg>
-Package pdftex.def Info: images/book.jpeg  used on input line 201.
+Package pdftex.def Info: images/book.jpeg  used on input line 200.
 (pdftex.def)             Requested size: 110.69925pt x 54.56508pt.
 <images/sq_interf.png, id=109, 628.3475pt x 616.3025pt>
 File: images/sq_interf.png Graphic file (type png)
 <use images/sq_interf.png>
-Package pdftex.def Info: images/sq_interf.png  used on input line 207.
+Package pdftex.def Info: images/sq_interf.png  used on input line 206.
 (pdftex.def)             Requested size: 110.69925pt x 108.56924pt.
 <images/screen1.png, id=110, 726.715pt x 748.7975pt>
 File: images/screen1.png Graphic file (type png)
 <use images/screen1.png>
-Package pdftex.def Info: images/screen1.png  used on input line 212.
+Package pdftex.def Info: images/screen1.png  used on input line 211.
 (pdftex.def)             Requested size: 110.69925pt x 114.06291pt.
 <images/sq_2.png, id=111, 859.21pt x 827.09pt>
 File: images/sq_2.png Graphic file (type png)
 <use images/sq_2.png>
-Package pdftex.def Info: images/sq_2.png  used on input line 217.
+Package pdftex.def Info: images/sq_2.png  used on input line 216.
 (pdftex.def)             Requested size: 110.69925pt x 106.5537pt.
 [2]
 
-LaTeX Warning: A float is stuck (cannot be placed) on input line 234.
+LaTeX Warning: A float is stuck (cannot be placed) on input line 228.
 
 
-LaTeX Warning: A float is stuck (cannot be placed) on input line 234.
+LaTeX Warning: A float is stuck (cannot be placed) on input line 228.
 
 
 Class revtex4-1 Warning: Deferred float stuck during \clearpage processing.
@@ -972,13 +972,13 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 6AD08AECD3041A82EB8251663D4DB13B;3252.
  ) 
 Here is how much of TeX's memory you used:
- 16305 strings out of 478287
- 259558 string characters out of 5849290
+ 16306 strings out of 478287
+ 259570 string characters out of 5849290
  611641 words of memory out of 5000000
- 34154 multiletter control sequences out of 15000+600000
+ 34155 multiletter control sequences out of 15000+600000
  487922 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 94i,8n,92p,670b,421s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 94i,8n,92p,1257b,421s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t2a.enc}</usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist
@@ -993,7 +993,7 @@ sfrm0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0900.pfb></usr/s
 hare/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/typ
 e1/public/cm-super/sfti0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/s
 ftt1000.pfb>
-Output written on main.pdf (4 pages, 1495454 bytes).
+Output written on main.pdf (4 pages, 1495099 bytes).
 PDF statistics:
  216 PDF objects out of 1000 (max. 8388607)
  170 compressed objects within 2 object streams
