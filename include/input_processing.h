@@ -40,7 +40,7 @@ extern GLuint intensityTex;
 // ╚═══════════╝
 
 // Read input keys and take corresponding actions
-void processInput(GLFWwindow *window);
+void processInput(GLFWwindow *window, obj_visible_plate v_plate);
 
 
 #endif // INPUT_PROCESSING_H

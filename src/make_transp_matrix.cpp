@@ -2,13 +2,13 @@
 
 int main(){
 
-    std::string name_from = "geom_book_sq";
-    std::string name_to = "book_intensity_sq.txt";
+    std::string name_from = "geom_2p";
+    std::string name_to = "intensity_2p.txt";
     double width = 10.0;
     double height = 10.0;
-    double scale = 1e-6;
-    std::vector<unsigned int> np = {1024, 1024};
-    obj_plate plate(scale, np, width, height);
+    double scale = 1;
+    std::vector<unsigned int> np = {256, 256};
+    obj_plate plate(scale, np, width, height, M_PI / 180);
     plate.readDataFromFile(name_from);
     plate.calculate_intensity_matrix();
     plate.saveIntensityToFile(name_to);

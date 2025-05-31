@@ -21,9 +21,10 @@ std::vector<std::vector<double>> visible_matrix;
     std::vector<unsigned int> number_of_points{2048, 2048};
     double k = 2*M_PI / 555e-9;
     double sin_alpha = sin(M_PI / 18);
+    double cos_alpha = cos(M_PI / 18);
 
     obj_visible_plate();
-    explicit obj_visible_plate(double scale);
+    obj_visible_plate(double scale, double width, double height, std::vector<unsigned int> number_of_points, double alpha);
     
     bool read_intensity_matrix(const std::string& filename);
     bool update_visible_matrix(double x, double y, double z);

@@ -5,17 +5,21 @@ obj_plate::obj_plate()
     scale(1e-6),
     number_of_points{100, 100},
     width(10.0),
-    height(10.0)
+    height(10.0),
+    cos_alpha(cos(0)),
+    sin_alpha(sin(0))
     {
         intensity_matrix.resize(number_of_points[0], std::vector<double>(number_of_points[1]));
     }
 
-obj_plate::obj_plate(double scale,const std::vector<unsigned int>& number_of_points, double width, double height)
+obj_plate::obj_plate(double scale,const std::vector<unsigned int>& number_of_points, double width, double height, double alpha)
     : 
     scale(scale),
     number_of_points(number_of_points),
     width(width),
-    height(height)
+    height(height),
+    cos_alpha(cos(alpha)),
+    sin_alpha(sin(alpha))
     {
         intensity_matrix.resize(number_of_points[0], std::vector<double>(number_of_points[1]));
     }
@@ -159,20 +163,27 @@ bool obj_plate::check_point_ray(double u, double s, double a, double b, double g
 double obj_plate::calculate_intensity_from_obj(double x, double y) {
     double I_res = 0.0;
 
-    #pragma omp parallel for reduction(+: I_res) num_threads(14)
+    //#pragma omp parallel for reduction(+: I_res) num_threads(14)
 
     for(size_t ind = 0; ind < geom_matrix.size(); ind++) {
         bool intersect = check_point_ray(x, y, geom_matrix[ind].x, geom_matrix[ind].y, geom_matrix[ind].z);
         if(intersect){
 
-            const double j = geom_matrix[ind].x;
+            const double j = geom_matrix[ind].x; 
             const double i_val = geom_matrix[ind].y;
-            double r_sq = (j - x) * (j - x) + (i_val - y) * (i_val - y) + geom_matrix[ind].z * geom_matrix[ind].z;
-            const double delta = sqrt(r_sq) - geom_matrix[ind].x * sin_alpha;
-            if(r_sq < scale * 1e-9){
-                r_sq = scale * 1e-9;
+            double r = sqrt((j - x) * (j - x) + (i_val - y) * (i_val - y) + geom_matrix[ind].z * geom_matrix[ind].z);
+            if(r < scale * 1e-9){
+                r = scale * 1e-9;
             }
-            I_res += 2 * I * (1 + cos(k * delta)) / sqrt(r_sq);
+            // double cos_a_x = (x - j) / r;
+            // double cos_a_y = (y - i_val) / r;
+            // double cos_a_z = (-geom_matrix[ind].z) / r;
+            //std::cout << r << std::endl;
+            //std::cout << j << " " << x << " " << i_val << " " << y << std::endl;
+            double rho = sqrt((j - x) * (j - x) + (i_val - y) * (i_val - y));
+            double phase = k * r  - k * sin_alpha * x;//k * rho * rho / (2 * geom_matrix[ind].z);//(k * sin_alpha - k * cos_a_x) * x + (-1.0) * k * cos_a_y * y;
+            //std::cout << phase << std::endl;
+            I_res += I * (1 + geom_matrix[ind].z * geom_matrix[ind].z/(r*r) + 2 * cos(phase) * geom_matrix[ind].z/r);
         }
     }
     return I_res;
@@ -204,10 +215,8 @@ bool obj_plate::calculate_intensity_matrix() {
             }
         }
     }
-
     return true;
 }
-
 
 bool obj_plate::saveIntensityToFile(const std::string& filename, char delimiter) {
     std::ofstream file(filename);

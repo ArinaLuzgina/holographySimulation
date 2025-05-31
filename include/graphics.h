@@ -2,7 +2,7 @@
 #define GRAPHICS_H
 
 #include <vector>
-
+#include "visible_field.h"
 
 // ╔════════════════════╗ 
 // ║ External variables ║
@@ -18,7 +18,7 @@ extern const unsigned int SCR_HEIGHT;
 // ╚═══════════╝
 
 // Run everything
-void runSimulation(std::vector<std::vector<double>>& intensity);
+void runSimulation(std::vector<std::vector<double>>& intensity, obj_visible_plate v_plate);
 
 
 #endif // GRAPHICS_H

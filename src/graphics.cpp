@@ -9,14 +9,13 @@
 
 #include "graphics.h"
 
-#include "visible_field.h"
 
 // ╔═══════════╗ 
 // ║ Functions ║
 // ╚═══════════╝
 
 // Run everything
-void runSimulation(std::vector<std::vector<double>>& intensity) {
+void runSimulation(std::vector<std::vector<double>>& intensity, obj_visible_plate v_plate) {
 
     // Initializing GLFW window
     GLFWwindow* window = initWindow(SCR_WIDTH, SCR_HEIGHT, "HoloViz");
@@ -37,14 +36,11 @@ void runSimulation(std::vector<std::vector<double>>& intensity) {
     auto [quadVAO, quadVBO] = createQuadVAO();
     assert(quadVAO != 0);
 
-    v_plate = obj_visible_plate(1e-6);
-    v_plate.read_intensity_matrix("book_intensity.txt");
-
     // Main loop
     while (!glfwWindowShouldClose(window)) {
 
         
-        processInput(window);
+        processInput(window, v_plate);
 
         renderScene(shaderProgram,
                     intensityTex,

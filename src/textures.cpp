@@ -25,7 +25,7 @@ GLuint createIntensityTexture(const std::vector<std::vector<double>>& intensity)
     pixels.reserve(texW * texH);
     for (int y = 0; y < texH; ++y) {
         for (int x = 0; x < texW; ++x) {
-            pixels.push_back(std::log(1 + static_cast<float>(intensity[x][y])) / std::log(2));
+            pixels.push_back(static_cast<float>(intensity[x][y])); //std::log(1 + static_cast<float>(intensity[x][y])) / std::log(2)
         }
     }
 
@@ -77,8 +77,8 @@ void updateIntensityTexture(GLuint tex,
     #pragma omp parallel for collapse(2)
     for (int y = 0; y < texH; ++y) {
         for (int x = 0; x < texW; ++x) {
-            pixels[y * texW + x] = static_cast<float>(intensity[x][y]);//std::log(1 + static_cast<float>(intensity[x][y])) / std::log(2);
-        }
+            pixels[y * texW + x] = static_cast<float>(intensity[x][y]);//std::log(1 + static_cast<float>(intensity[x][y])) / std::log(2);//static_cast<float>(intensity[x][y]);
+        } //exp(static_cast<float>(intensity[x][y])) / exp(1.0);
     }
 
     glBindTexture(GL_TEXTURE_2D, tex);

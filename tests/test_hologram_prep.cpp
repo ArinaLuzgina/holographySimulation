@@ -12,7 +12,7 @@ void test_constructors() {
     std::cout << "Default constructor: OK\n";
 
     // Параметризованный конструктор
-    obj_plate plate2(2e-6, {50, 50}, 10, 10);
+    obj_plate plate2(2e-6, {50, 50}, 10, 10, 0);
     assert(plate2.scale == 2e-6);
     assert(plate2.number_of_points[1] == 50);
     std::cout << "Parameterized constructor: OK\n";

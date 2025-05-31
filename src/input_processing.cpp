@@ -1,6 +1,4 @@
 #include "textures.h"
-#include "visible_field.h"
-
 #include "input_processing.h"
 
 // ╔═══════════╗ 
@@ -8,14 +6,14 @@
 // ╚═══════════╝
 
 // Read input keys and take corresponding actions
-void processInput(GLFWwindow *window) {
+void processInput(GLFWwindow *window, obj_visible_plate v_plate) {
     // reset
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
         // -------------------------------------
         // Intensity recalculation
         v_plate.update_visible_matrix(cameraPos.x, cameraPos.y, cameraPos.z);
         // -------------------------------------
-        updateIntensityTexture(intensityTex, v_plate.transp_matrix);
+        updateIntensityTexture(intensityTex, v_plate.visible_matrix);
     }
 
     float currentFrame = glfwGetTime();

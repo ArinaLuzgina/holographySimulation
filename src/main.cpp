@@ -3,7 +3,7 @@
 #include <omp.h>
 
 #include "graphics.h"
-
+#include "visible_field.h"
 
 // Creates and returns a matrix (vector of vectors) of the specified size,
 // initialized to zeros.
@@ -30,10 +30,16 @@ void fillRandom(std::vector<std::vector<double>>& intensity) {
 int main() {
 
     // Creating intensity distribution
-    auto intensity = createIntensity(1024, 1024); 
+
+    int n = 256;
+    auto intensity = createIntensity(n, n); 
     // fillRandom(intensity);
+    std::vector<unsigned int> np = {n, n};
+    obj_visible_plate v_plate = obj_visible_plate(1, 10.0, 10.0, np, 0);
+    v_plate.read_intensity_matrix("intensity_2p.txt");
+
     
-    runSimulation(intensity);
+    runSimulation(intensity, v_plate);
 
     return 0;
 }
