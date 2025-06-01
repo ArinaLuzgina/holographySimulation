@@ -4,6 +4,8 @@
 #include <cmath>
 #include <fftw3.h>
 #include <iostream>
+#include <limits>
+
 obj_visible_plate::obj_visible_plate() : scale(1e-6), width(10), height(10), number_of_points{1024, 1024}, cos_alpha(cos(M_PI / 18)), sin_alpha(sin(M_PI / 18)) {}
 obj_visible_plate::obj_visible_plate(double scale, double width, double height, std::vector<unsigned int> number_of_points, double alpha) : scale(scale), width(width), height(height), number_of_points(number_of_points), sin_alpha(sin(alpha)), cos_alpha(cos(alpha)) {}
 
@@ -49,6 +51,29 @@ MatrixXd obj_visible_plate::fftshift(const MatrixXd& matrix) {
                matrix.topLeftCorner(half_r, half_c);
     return shifted;
 }
+void obj_visible_plate::enhance_contrast() {
+    double min_val = std::numeric_limits<double>::max();
+    double max_val = std::numeric_limits<double>::lowest();
+
+    // Находим реальные min и max в матрице
+    for (const auto& row : visible_matrix) {
+        for (double val : row) {
+            if (val < min_val) min_val = val;
+            if (val > max_val) max_val = val;
+        }
+    }
+
+    // Проверка на случай одинаковых значений
+    if (min_val >= max_val) return;
+
+    // Применяем линейное растяжение
+    const double range = max_val - min_val;
+    for (auto& row : visible_matrix) {
+        for (double& val : row) {
+            val = (val - min_val) / range;
+        }
+    }
+}
 
 bool obj_visible_plate::update_visible_matrix(double x, double y, double z) {
     const int rows = transp_matrix.size();
@@ -71,13 +96,13 @@ bool obj_visible_plate::update_visible_matrix(double x, double y, double z) {
                 for (int n = 0; n < cols; n++) {
                     double dx = m * stepx - x_0;
                     double dy = n * stepy - y_0;
-                    double r = sqrt(dx*dx + dy*dy + z*z) - m * stepx * sin_alpha - sqrt(x_0 * x_0 + y_0 * y_0 + z * z);
+                    double r = sqrt(dx*dx + dy*dy + z*z) - m * stepx * sin_alpha ;//- sqrt(x_0 * x_0 + y_0 * y_0 + z * z);
                     I_res += transp_matrix[m][n] *transp_matrix[m][n] * 1.0 *(1 + cos(k * r)) *s;
                     //std::cout << I_res << std::endl;
                 }
             }
             //std::cout << I_res <<std::endl;
-            I_res -= 0.34;
+            
             visible_matrix[i][j] = I_res;
             if (I_res > I_max) {
                 I_max = I_res;
@@ -96,6 +121,7 @@ bool obj_visible_plate::update_visible_matrix(double x, double y, double z) {
             }
         }
     }
+    enhance_contrast();
     std::cout << "I has finished my calc\n";
 
     return true;

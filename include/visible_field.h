@@ -28,5 +28,6 @@ std::vector<std::vector<double>> visible_matrix;
     
     bool read_intensity_matrix(const std::string& filename);
     bool update_visible_matrix(double x, double y, double z);
+    void enhance_contrast();
     MatrixXd fftshift(const MatrixXd& matrix);
 };

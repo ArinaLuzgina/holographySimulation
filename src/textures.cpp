@@ -77,7 +77,7 @@ void updateIntensityTexture(GLuint tex,
     #pragma omp parallel for collapse(2)
     for (int y = 0; y < texH; ++y) {
         for (int x = 0; x < texW; ++x) {
-            pixels[y * texW + x] = static_cast<float>(intensity[x][y]);//std::log(1 + static_cast<float>(intensity[x][y])) / std::log(2);//static_cast<float>(intensity[x][y]);
+            pixels[y * texW + x] = std::pow(static_cast<float>(intensity[x][y]), 2);//std::log(1 + static_cast<float>(intensity[x][y])) / std::log(2);//static_cast<float>(intensity[x][y]);
         } //exp(static_cast<float>(intensity[x][y])) / exp(1.0);
     }
 
