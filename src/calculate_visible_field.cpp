@@ -96,8 +96,8 @@ bool obj_visible_plate::update_visible_matrix(double x, double y, double z) {
                 for (int n = 0; n < cols; n++) {
                     double dx = m * stepx - x_0;
                     double dy = n * stepy - y_0;
-                    double r = sqrt(dx*dx + dy*dy + z*z) - m * stepx * sin_alpha ;//- sqrt(x_0 * x_0 + y_0 * y_0 + z * z);
-                    I_res += transp_matrix[m][n] *transp_matrix[m][n] * 1.0 *(1 + cos(k * r)) *s;
+                    double r = sqrt(dx*dx + dy*dy + z*z) - m * stepx * sin_alpha - sqrt(x_0 * x_0 + y_0 * y_0 + z * z);
+                    I_res += transp_matrix[m][n] * transp_matrix[m][n] * 1.0 *(1 + cos(k * r)) *s;
                     //std::cout << I_res << std::endl;
                 }
             }
@@ -113,7 +113,7 @@ bool obj_visible_plate::update_visible_matrix(double x, double y, double z) {
     }
 
     // Нормализация результатов
-    if (I_max > scale * 1e-9) { // Убрана лишняя точка с запятой
+    if (I_max > scale * 1e-9) { 
         #pragma omp parallel for collapse(2)
         for (int i = 0; i < cols; i++) {
             for (int j = 0; j < rows; j++) {

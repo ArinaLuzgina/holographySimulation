@@ -36,7 +36,7 @@ int main() {
     // fillRandom(intensity);
     std::vector<unsigned int> np = {n, n};
     obj_visible_plate v_plate = obj_visible_plate(1, 10.0, 10.0, np, 0);
-    v_plate.read_intensity_matrix("intensity_2p.txt");
+    v_plate.read_intensity_matrix("intensity_p.txt");
 
     
     runSimulation(intensity, v_plate);
