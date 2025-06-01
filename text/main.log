@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.2.2)  1 JUN 2025 13:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.2.2)  1 JUN 2025 22:35
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -882,28 +882,28 @@ Underfull \hbox (badness 1642) in paragraph at lines 106--107
 []\T2A/cmr/m/n/10 При осве-ще-нии го-ло-грам-мы вос-ста-нав-ли-ва-ю-щей
  []
 
-<images/point_s_t.jpeg, id=121, 1072.005pt x 648.4225pt>
+<images/point_s_t.jpeg, id=125, 1072.005pt x 648.4225pt>
 File: images/point_s_t.jpeg Graphic file (type jpg)
 <use images/point_s_t.jpeg>
 Package pdftex.def Info: images/point_s_t.jpeg  used on input line 121.
 (pdftex.def)             Requested size: 246.0pt x 148.79764pt.
-<images/den.png, id=122, 875.27pt x 947.54pt>
+<images/den.png, id=126, 875.27pt x 947.54pt>
 File: images/den.png Graphic file (type png)
 <use images/den.png>
 Package pdftex.def Info: images/den.png  used on input line 147.
 (pdftex.def)             Requested size: 246.0pt x 266.307pt.
 [2 <./images/point_s_t.jpeg>]
-<images/plate.jpeg, id=148, 1284.8pt x 1259.70625pt>
+<images/plate.jpeg, id=152, 1284.8pt x 1259.70625pt>
 File: images/plate.jpeg Graphic file (type jpg)
 <use images/plate.jpeg>
 Package pdftex.def Info: images/plate.jpeg  used on input line 189.
 (pdftex.def)             Requested size: 110.69925pt x 108.52484pt.
-<images/construction1.jpeg, id=149, 1146.2825pt x 1284.8pt>
+<images/construction1.jpeg, id=153, 1146.2825pt x 1284.8pt>
 File: images/construction1.jpeg Graphic file (type jpg)
 <use images/construction1.jpeg>
 Package pdftex.def Info: images/construction1.jpeg  used on input line 194.
 (pdftex.def)             Requested size: 110.69925pt x 124.07652pt.
-<images/construction2.jpeg, id=150, 890.32625pt x 563.10374pt>
+<images/construction2.jpeg, id=154, 890.32625pt x 563.10374pt>
 File: images/construction2.jpeg Graphic file (type jpg)
 <use images/construction2.jpeg>
 Package pdftex.def Info: images/construction2.jpeg  used on input line 199.
@@ -926,17 +926,17 @@ Underfull \hbox (badness 5331) in paragraph at lines 182--204
 
 [3 <./images/den.png> <./images/plate.jpeg> <./images/construction1.jpeg> <./im
 ages/construction2.jpeg>]
-<images/laser_lighting.jpeg, id=168, 1284.8pt x 963.6pt>
+<images/laser_lighting.jpeg, id=172, 1284.8pt x 963.6pt>
 File: images/laser_lighting.jpeg Graphic file (type jpg)
 <use images/laser_lighting.jpeg>
 Package pdftex.def Info: images/laser_lighting.jpeg  used on input line 217.
 (pdftex.def)             Requested size: 229.49844pt x 172.11722pt.
-<images/pos2.jpeg, id=170, 1284.8pt x 746.79pt>
+<images/pos2.jpeg, id=174, 1284.8pt x 746.79pt>
 File: images/pos2.jpeg Graphic file (type jpg)
 <use images/pos2.jpeg>
 Package pdftex.def Info: images/pos2.jpeg  used on input line 229.
 (pdftex.def)             Requested size: 246.0pt x 142.98549pt.
-<images/pos1.jpeg, id=171, 1044.90375pt x 919.435pt>
+<images/pos1.jpeg, id=175, 1044.90375pt x 919.435pt>
 File: images/pos1.jpeg Graphic file (type jpg)
 <use images/pos1.jpeg>
 Package pdftex.def Info: images/pos1.jpeg  used on input line 234.
@@ -951,7 +951,7 @@ Underfull \hbox (badness 2409) in paragraph at lines 234--234
 \T2A/cmr/m/n/8 ред объ-ек-том, эмуль-си-ей к
  []
 
-<images/pos3.jpeg, id=172, 1176.395pt x 935.495pt>
+<images/pos3.jpeg, id=176, 1176.395pt x 935.495pt>
 File: images/pos3.jpeg Graphic file (type jpg)
 <use images/pos3.jpeg>
 Package pdftex.def Info: images/pos3.jpeg  used on input line 239.
@@ -971,24 +971,24 @@ Overfull \hbox (6.16516pt too wide) in paragraph at lines 229--241
  [][] 
  []
 
-<images/real_hol.jpeg, id=173, 1259.70625pt x 1284.8pt>
+<images/real_hol.jpeg, id=177, 1259.70625pt x 1284.8pt>
 File: images/real_hol.jpeg Graphic file (type jpg)
 <use images/real_hol.jpeg>
 Package pdftex.def Info: images/real_hol.jpeg  used on input line 247.
 (pdftex.def)             Requested size: 229.49844pt x 234.05745pt.
 [4 <./images/laser_lighting.jpeg> <./images/pos2.jpeg> <./images/pos1.jpeg> <./
 images/pos3.jpeg> <./images/real_hol.jpeg>]
-<images/light1.jpeg, id=187, 1284.8pt x 1272.755pt>
+<images/light1.jpeg, id=191, 1284.8pt x 1272.755pt>
 File: images/light1.jpeg Graphic file (type jpg)
 <use images/light1.jpeg>
 Package pdftex.def Info: images/light1.jpeg  used on input line 259.
 (pdftex.def)             Requested size: 246.0pt x 243.69034pt.
-<images/not_light.jpeg, id=190, 1084.05pt x 1066.98625pt>
+<images/not_light.jpeg, id=194, 1084.05pt x 1066.98625pt>
 File: images/not_light.jpeg Graphic file (type jpg)
 <use images/not_light.jpeg>
 Package pdftex.def Info: images/not_light.jpeg  used on input line 264.
 (pdftex.def)             Requested size: 110.69925pt x 108.95163pt.
-<images/light2.jpeg, id=191, 1084.05pt x 1058.95625pt>
+<images/light2.jpeg, id=195, 1084.05pt x 1058.95625pt>
 File: images/light2.jpeg Graphic file (type jpg)
 <use images/light2.jpeg>
 Package pdftex.def Info: images/light2.jpeg  used on input line 269.
@@ -998,7 +998,7 @@ Overfull \hbox (6.16516pt too wide) in paragraph at lines 259--271
  [][] 
  []
 
-<images/closed_scene.jpeg, id=195, 920.43875pt x 1008.76875pt>
+<images/closed_scene.jpeg, id=199, 920.43875pt x 1008.76875pt>
 File: images/closed_scene.jpeg Graphic file (type jpg)
 <use images/closed_scene.jpeg>
 Package pdftex.def Info: images/closed_scene.jpeg  used on input line 276.
@@ -1056,42 +1056,42 @@ Overfull \hbox (20.44104pt too wide) in paragraph at lines 357--357
  []\T2A/cmtt/m/n/10 std::string name_from = "file_with_intensity";[] 
  []
 
-<images/point_interf.png, id=209, 602.25pt x 594.22pt>
+<images/point_interf.png, id=213, 602.25pt x 594.22pt>
 File: images/point_interf.png Graphic file (type png)
 <use images/point_interf.png>
 Package pdftex.def Info: images/point_interf.png  used on input line 367.
 (pdftex.def)             Requested size: 107.10342pt x 105.66747pt.
-<images/point1.png, id=210, 636.3775pt x 590.205pt>
+<images/point1.png, id=214, 636.3775pt x 590.205pt>
 File: images/point1.png Graphic file (type png)
 <use images/point1.png>
 Package pdftex.def Info: images/point1.png  used on input line 373.
 (pdftex.def)             Requested size: 107.10342pt x 99.32486pt.
-<images/point2.png, id=211, 945.5325pt x 642.4pt>
+<images/point2.png, id=215, 945.5325pt x 642.4pt>
 File: images/point2.png Graphic file (type png)
 <use images/point2.png>
 Package pdftex.def Info: images/point2.png  used on input line 378.
 (pdftex.def)             Requested size: 107.10342pt x 72.76189pt.
-<images/point4.png, id=212, 491.8375pt x 542.025pt>
+<images/point4.png, id=216, 491.8375pt x 542.025pt>
 File: images/point4.png Graphic file (type png)
 <use images/point4.png>
 Package pdftex.def Info: images/point4.png  used on input line 383.
 (pdftex.def)             Requested size: 107.10342pt x 118.03008pt.
-<images/book.jpeg, id=213, 1284.8pt x 633.36626pt>
+<images/book.jpeg, id=217, 1284.8pt x 633.36626pt>
 File: images/book.jpeg Graphic file (type jpg)
 <use images/book.jpeg>
 Package pdftex.def Info: images/book.jpeg  used on input line 393.
 (pdftex.def)             Requested size: 110.69925pt x 54.56508pt.
-<images/sq_interf.png, id=214, 628.3475pt x 616.3025pt>
+<images/sq_interf.png, id=218, 628.3475pt x 616.3025pt>
 File: images/sq_interf.png Graphic file (type png)
 <use images/sq_interf.png>
 Package pdftex.def Info: images/sq_interf.png  used on input line 399.
 (pdftex.def)             Requested size: 110.69925pt x 108.56924pt.
-<images/screen1.png, id=215, 726.715pt x 748.7975pt>
+<images/screen1.png, id=219, 726.715pt x 748.7975pt>
 File: images/screen1.png Graphic file (type png)
 <use images/screen1.png>
 Package pdftex.def Info: images/screen1.png  used on input line 404.
 (pdftex.def)             Requested size: 110.69925pt x 114.06291pt.
-<images/sq_2.png, id=216, 859.21pt x 827.09pt>
+<images/sq_2.png, id=220, 859.21pt x 827.09pt>
 File: images/sq_2.png Graphic file (type png)
 <use images/sq_2.png>
 Package pdftex.def Info: images/sq_2.png  used on input line 409.
@@ -1116,13 +1116,13 @@ No file main.bbl.
 [7 <./images/book.jpeg> <./images/sq_interf.png> <./images/screen1.png> <./imag
 es/sq_2.png>] (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: D0DAA61EE3FD2647AAFC24BF56AE74B9;4631.
+(rerunfilecheck)             Checksum: 9DEDD41371E083CB87E75F8905C93263;4751.
  ) 
 Here is how much of TeX's memory you used:
- 16573 strings out of 478287
- 264208 string characters out of 5849290
+ 16576 strings out of 478287
+ 264256 string characters out of 5849290
  616176 words of memory out of 5000000
- 34350 multiletter control sequences out of 15000+600000
+ 34352 multiletter control sequences out of 15000+600000
  489131 words of font info for 77 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  94i,22n,92p,1593b,495s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1146,10 +1146,10 @@ blic/cm-super/sfrm0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm09
 exmf/fonts/type1/public/cm-super/sfti0900.pfb></usr/share/texmf/fonts/type1/pub
 lic/cm-super/sfti1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt100
 0.pfb>
-Output written on main.pdf (7 pages, 3106251 bytes).
+Output written on main.pdf (7 pages, 3109489 bytes).
 PDF statistics:
- 364 PDF objects out of 1000 (max. 8388607)
- 286 compressed objects within 3 object streams
- 95 named destinations out of 1000 (max. 500000)
- 291 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 368 PDF objects out of 1000 (max. 8388607)
+ 290 compressed objects within 3 object streams
+ 96 named destinations out of 1000 (max. 500000)
+ 299 words of extra memory for PDF output out of 10000 (max. 10000000)
 
